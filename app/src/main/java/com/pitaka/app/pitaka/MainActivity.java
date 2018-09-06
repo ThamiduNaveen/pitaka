@@ -10,6 +10,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        android.widget.Toast.makeText(MainActivity.this, "hsjddkd", Toast.LENGTH_SHORT).show();
+        int pakaya=1;
     }
 }
