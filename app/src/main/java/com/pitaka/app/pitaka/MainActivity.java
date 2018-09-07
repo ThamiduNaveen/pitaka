@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,24 +38,24 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmentInteractionListener,Paali.OnFragmentInteractionListener {
 
-     private DatabaseHelper mDBHelper;
-     private SQLiteDatabase mDb;
+    private DatabaseHelper mDBHelper;
+    private SQLiteDatabase mDb;
 
-     List<NLevelItem> list;
-     ListView listView;
+    List<NLevelItem> list;
+    ListView listView;
 
     String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"1.BrahmajalaSuttan\",\"children\":[]},{\"title\":\"2.SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"3.Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
-     //String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
+    //String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-         TabLayout tabLayout=findViewById(R.id.tabLayout);
-         tabLayout.addTab(tabLayout.newTab().setText("Sinhala"));
-         tabLayout.addTab(tabLayout.newTab().setText("Paali"));
-         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        TabLayout tabLayout=findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Sinhala"));
+        tabLayout.addTab(tabLayout.newTab().setText("Paali"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager=findViewById(R.id.pager);
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
@@ -113,13 +114,36 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        listView = (ListView) findViewById(R.id.listView1);
+        final Button serchSuthraBT = (Button)findViewById(R.id.search_Button_navigation);
+        final Button thripitakaBT = (Button)findViewById(R.id.thripitaka_Button_navigation);
+        serchSuthraBT.setVisibility(View.GONE);
+        serchSuthraBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView.setVisibility(View.GONE);
+                serchSuthraBT.setVisibility(View.GONE);
+                thripitakaBT.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        thripitakaBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView.setVisibility(View.VISIBLE);
+                thripitakaBT.setVisibility(View.GONE);
+                serchSuthraBT.setVisibility(View.VISIBLE);
+            }
+        });
+
         NLevelExpandableListView();
 
     }
 
     private void NLevelExpandableListView() {
 
-        listView = (ListView) findViewById(R.id.listView1);
+
         list = new ArrayList<NLevelItem>();
         final LayoutInflater inflater = LayoutInflater.from(this);
         nestedLoop(jsonStringList, null, inflater, 0);
@@ -196,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                           // Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
                             //createVerseList(Title);
                             createVerseList("suthra1");
 
