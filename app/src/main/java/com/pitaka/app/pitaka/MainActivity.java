@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     List<NLevelItem> list;
     ListView listView;
 
-    String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
+    String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"1.BrahmajalaSuttan\",\"children\":[]},{\"title\":\"2.SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"3.Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +118,16 @@ public class MainActivity extends AppCompatActivity {
                     tv.setTypeface(Typeface.DEFAULT_BOLD);
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setTextColor(Color.BLACK);
-                }else {
+                } else if (level == 3) {
+                    tv.setTypeface(null,Typeface.ITALIC);
+                    //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
+                    tv.setTextColor(Color.WHITE);
+
+                }else{
                     //tv.setTypeface(Typeface.DEFAULT_BOLD);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setTextColor(Color.parseColor("#744308"));
+
 
                 }
 
