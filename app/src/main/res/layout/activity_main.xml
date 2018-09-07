@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:id="@+id/drawer_layout">
+    <LinearLayout
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
+        <include
+            android:id="@+id/main_bar"
+            layout="@layout/app_bar">
 
-</android.support.constraint.ConstraintLayout>
+        </include>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="start"
+        android:background="@color/colorBackNav">
+
+        <include
+            android:id="@+id/main_bar"
+            layout="@layout/nav_header">
+
+        </include>
+
+        <TextView
+            android:padding="10dp"
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NLevelExpandable ListView" />
+
+        <ListView
+            android:padding="5dp"
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1">
+
+        </ListView>
+
+        <ExpandableListView
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:id="@+id/expList"
+            android:groupIndicator="@null"
+            android:layout_height="fill_parent">
+        </ExpandableListView>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.DrawerLayout>
