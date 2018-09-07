@@ -38,10 +38,12 @@
 
         <TextView
             android:padding="10dp"
-            android:id="@+id/textView1"
+            android:id="@+id/TextView_Tripitakaya"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NLevelExpandable ListView" />
+            android:textSize="18sp"
+            android:text="ත්‍රිපිටකය"
+            />
 
         <ListView
             android:padding="5dp"

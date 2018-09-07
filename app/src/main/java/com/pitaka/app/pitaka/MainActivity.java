@@ -1,12 +1,14 @@
 package com.pitaka.app.pitaka;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     List<NLevelItem> list;
     ListView listView;
 
-    int[] colors = {Color.BLUE, Color.RED, Color.MAGENTA, Color.GRAY, Color.GREEN, Color.YELLOW};
 
     String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
 
@@ -55,14 +56,11 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
-
-
         NLevelExpandableListView();
 
     }
 
-    private void NLevelExpandableListView(){
+    private void NLevelExpandableListView() {
 
         listView = (ListView) findViewById(R.id.listView1);
         list = new ArrayList<NLevelItem>();
@@ -76,38 +74,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
-                ((NLevelAdapter)listView.getAdapter()).toggle(arg2);
-                ((NLevelAdapter)listView.getAdapter()).getFilter().filter();
+                ((NLevelAdapter) listView.getAdapter()).toggle(arg2);
+                ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
             }
         });
 
     }
 
-    private void nestedLoop(String levelList, NLevelItem nLevelItem, final LayoutInflater inflater, int level){
+    private void nestedLoop(String levelList, NLevelItem nLevelItem, final LayoutInflater inflater, int level) {
 
-        try{
+        try {
 
             JSONArray jsonArrayStringList = new JSONArray(levelList);
             int length = jsonArrayStringList.length();
 
-            for (int i=0; i<length; i++){
+            for (int i = 0; i < length; i++) {
                 JSONObject itemObject = jsonArrayStringList.getJSONObject(i);
                 int childrenSize = itemObject.getJSONArray("children").length();
-                NLevelItem Parent = itemView(i, itemObject.getString("title"), nLevelItem, inflater, level, !(childrenSize>0));
+                NLevelItem Parent = itemView(i, itemObject.getString("title"), nLevelItem, inflater, level, !(childrenSize > 0));
                 list.add(Parent);
 
-                if(childrenSize>0){
-                    nestedLoop(itemObject.getJSONArray("children").toString(), Parent, inflater, level+1);
+                if (childrenSize > 0) {
+                    nestedLoop(itemObject.getJSONArray("children").toString(), Parent, inflater, level + 1);
                 }
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
 
-    private NLevelItem itemView(int itemRow, final String Title, NLevelItem nLevelItem, final LayoutInflater inflater, final int level, final boolean isLast){
+    private NLevelItem itemView(int itemRow, final String Title, NLevelItem nLevelItem, final LayoutInflater inflater, final int level, final boolean isLast) {
 
         NLevelItem superChild = new NLevelItem(new SomeObject(Title), nLevelItem, new NLevelView() {
             @Override
@@ -117,16 +115,25 @@ public class MainActivity extends AppCompatActivity {
                 String name = (String) ((SomeObject) item.getWrappedObject()).getName();
                 tv.setText(name);
 
-                tv.setBackgroundColor(colors[level]);
+                if (level == 0) {
+                    tv.setTypeface(Typeface.DEFAULT_BOLD);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
+                    tv.setTextColor(Color.BLACK);
+                }else {
+                    //tv.setTypeface(Typeface.DEFAULT_BOLD);
+                    //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
+                    tv.setTextColor(Color.parseColor("#744308"));
+
+                }
 
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) tv.getLayoutParams();
-                mlp.setMargins(level*50, 5, 5, 5);
+                mlp.setMargins(level * 50, 5, 5, 5);
 
-                if(isLast){
+                if (isLast) {
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Clicked on: " + Title, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
