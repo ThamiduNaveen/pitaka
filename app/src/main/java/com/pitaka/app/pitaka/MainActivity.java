@@ -1,12 +1,15 @@
 package com.pitaka.app.pitaka;
 
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.graphics.Typeface;
-import android.support.design.widget.NavigationView;
+//import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -25,10 +28,14 @@ import com.pitaka.app.pitaka.nLevel.SomeObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DatabaseHelper mDBHelper;
+    private SQLiteDatabase mDb;
 
     List<NLevelItem> list;
     ListView listView;
@@ -39,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        mDBHelper = new DatabaseHelper(this);
+
+        try {
+            mDBHelper.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
+
+        try {
+            mDb = mDBHelper.getWritableDatabase();
+        } catch (SQLException mSQLException) {
+            throw mSQLException;
+        }
+
+        mDBHelper.openDataBase();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_bar);
 
@@ -138,7 +162,11 @@ public class MainActivity extends AppCompatActivity {
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(MainActivity.this, "Clicked on: " + Title, Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
+                            //createVerseList(Title);
+                            createVerseList("suthra1");
+
+
                         }
                     });
                 }
@@ -148,6 +176,27 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return superChild;
+    }
+
+    public void createVerseList(String verse){
+        Cursor res = mDBHelper.getVerse(verse);
+
+        if (res.getCount() == 0) {
+            //no data
+
+
+            return;
+        } else {
+            StringBuffer stringBuffer = new StringBuffer();
+
+            while (res.moveToNext()) {
+                stringBuffer.append(res.getString(0) + "\n");
+                Toast.makeText(this,res.getString(0) , Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
     }
 
 }
