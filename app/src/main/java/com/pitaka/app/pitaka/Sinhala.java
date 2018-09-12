@@ -4,9 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import static com.pitaka.app.pitaka.MainActivity.stringBuffer;
+import static java.lang.System.err;
 
 
 /**
@@ -28,6 +35,8 @@ public class Sinhala extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public TextView tv;
 
     public Sinhala() {
         // Required empty public constructor
@@ -58,12 +67,20 @@ public class Sinhala extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        LinearLayout layout = (LinearLayout) getView().getParent();
+        //LinearLayout myLayout = (LinearLayout) findViewById(R.id.hl);
+//        TextView textView = (TextView) layout.findViewById(R.id.sampleView);
+
+        Toast.makeText(getActivity(), stringBuffer, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         return inflater.inflate(R.layout.fragment_sinhala, container, false);
     }
 
@@ -104,5 +121,34 @@ public class Sinhala extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        View view = getView();
+
+        tv = view.findViewById(R.id.sampleView);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        tv.setText(stringBuffer);
+    }
+
+
+
+    public void setData(String data){
+
+        try{
+            Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Log.d("error",data);
+        }
     }
 }

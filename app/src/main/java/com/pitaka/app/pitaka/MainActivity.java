@@ -1,13 +1,17 @@
 package com.pitaka.app.pitaka;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.graphics.Typeface;
 //import android.support.design.widget.NavigationView;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +19,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +43,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmentInteractionListener,Paali.OnFragmentInteractionListener {
 
      private DatabaseHelper mDBHelper;
+     public static StringBuffer stringBuffer;
      private SQLiteDatabase mDb;
 
      List<NLevelItem> list;
@@ -79,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
             }
         });
-
 
 
         mDBHelper = new DatabaseHelper(this);
@@ -194,11 +199,30 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
                 if (isLast) {
                     tv.setOnClickListener(new View.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void onClick(View v) {
                            // Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
                             //createVerseList(Title);
-                            createVerseList("suthra1");
+                           createVerseList("suthra1");
+
+                            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+                            drawer.closeDrawer(Gravity.LEFT);
+
+
+
+//                            Fragment currentFragment = getFragmentManager().findFragmentByTag(R.id.sinhala);
+//
+//                            Toast.makeText(MainActivity.this, currentFragment., Toast.LENGTH_SHORT).show();
+//
+//                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//                            fragmentTransaction.detach(currentFragment);
+//                            fragmentTransaction.attach(currentFragment);
+//                            fragmentTransaction.commit();
+
+
+
 
 
                         }
@@ -221,13 +245,15 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
             return;
         } else {
-            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer = new StringBuffer();
 
             while (res.moveToNext()) {
                 stringBuffer.append(res.getString(0) + "\n");
-                Toast.makeText(this,res.getString(0) , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,res.getString(0) , Toast.LENGTH_SHORT).show();
 
             }
+
+            Toast.makeText(this,stringBuffer , Toast.LENGTH_SHORT).show();
 
         }
 
