@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
         Cursor res = mDBHelper.getVerse(verse);
 
         if (res.getCount() == 0) {
-            //no data
+            //no
 
 
             return;
