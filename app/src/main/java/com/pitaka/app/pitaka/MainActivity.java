@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.graphics.Typeface;
 //import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -36,11 +39,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmentInteractionListener,Paali.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
     public static StringBuffer stringBuffer;
+    ViewPager viewPager;
+    DrawerLayout drawer;
+
 
     List<NLevelItem> list;
     ListView listView;
@@ -53,16 +59,15 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabLayout tabLayout=findViewById(R.id.tabLayout);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Sinhala"));
         tabLayout.addTab(tabLayout.newTab().setText("Paali"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager=findViewById(R.id.pager);
-        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager = findViewById(R.id.pager);
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -81,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
             }
         });
-
 
 
         mDBHelper = new DatabaseHelper(this);
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -116,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
         toggle.syncState();
 
         listView = (ListView) findViewById(R.id.listView1);
-        final Button serchSuthraBT = (Button)findViewById(R.id.search_Button_navigation);
-        final Button thripitakaBT = (Button)findViewById(R.id.thripitaka_Button_navigation);
+        final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
+        final Button thripitakaBT = (Button) findViewById(R.id.thripitaka_Button_navigation);
         serchSuthraBT.setVisibility(View.GONE);
         serchSuthraBT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,11 +206,11 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setTextColor(Color.BLACK);
                 } else if (level == 3) {
-                    tv.setTypeface(null,Typeface.ITALIC);
+                    tv.setTypeface(null, Typeface.ITALIC);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setTextColor(Color.WHITE);
 
-                }else{
+                } else {
                     //tv.setTypeface(Typeface.DEFAULT_BOLD);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setTextColor(Color.parseColor("#744308"));
@@ -224,7 +228,8 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
                             // Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
                             //createVerseList(Title);
                             createVerseList("suthra1");
-
+                            viewPager.getAdapter().notifyDataSetChanged();
+                            drawer.closeDrawer(GravityCompat.START);
 
                         }
                     });
@@ -237,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
         return superChild;
     }
 
-    public void createVerseList(String verse){
+    public void createVerseList(String verse) {
         Cursor res = mDBHelper.getVerse(verse);
 
         if (res.getCount() == 0) {
@@ -250,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
             while (res.moveToNext()) {
                 stringBuffer.append(res.getString(0) + "\n");
-                Toast.makeText(this,res.getString(0) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -258,8 +263,4 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

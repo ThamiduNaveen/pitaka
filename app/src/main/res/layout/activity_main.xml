@@ -47,7 +47,7 @@
         android:orientation="vertical">
 
         <include
-            android:id="@+id/main_bar"
+            android:id="@+id/main_bar_left"
             layout="@layout/nav_header">
 
         </include>
@@ -89,6 +89,31 @@
         <!--android:groupIndicator="@null"-->
         <!--android:layout_height="fill_parent">-->
         <!--</ExpandableListView>-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/colorBackNav"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/main_bar_right"
+            layout="@layout/nav_header">
+
+        </include>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="ත්‍රිපිටකය සෙවීම "
+            android:textColor="#744308"
+            android:textSize="18sp" />
+
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.pitaka.app.pitaka;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -33,5 +34,10 @@ public class PagerAdapter  extends FragmentStatePagerAdapter{
     @Override
     public int getCount() {
         return mNoOfTabs;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 }
