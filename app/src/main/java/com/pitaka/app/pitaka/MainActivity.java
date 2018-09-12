@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
+    public static StringBuffer stringBuffer;
 
     List<NLevelItem> list;
     ListView listView;
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements Sinhala.OnFragmen
 
             return;
         } else {
-            StringBuffer stringBuffer = new StringBuffer();
+            stringBuffer = new StringBuffer();
 
             while (res.moveToNext()) {
                 stringBuffer.append(res.getString(0) + "\n");
