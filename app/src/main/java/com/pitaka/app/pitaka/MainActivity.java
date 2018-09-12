@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
 
-
         listView = (ListView) findViewById(R.id.listView1);
         final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
         final Button thripitakaBT = (Button) findViewById(R.id.thripitaka_Button_navigation);
@@ -177,8 +176,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
+                TextView t = (TextView) arg1.findViewById(R.id.textView);
+                //          t.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_search_black_24dp,0,0,0);
                 ((NLevelAdapter) listView.getAdapter()).toggle(arg2);
                 ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
+
             }
         });
 
@@ -217,11 +219,15 @@ public class MainActivity extends AppCompatActivity {
                 TextView tv = (TextView) view.findViewById(R.id.textView);
                 String name = (String) ((SomeObject) item.getWrappedObject()).getName();
                 tv.setText(name);
+                tv.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_folder_white_24dp, 0, 0, 0);
+                tv.setCompoundDrawablePadding(15);
 
                 if (level == 0) {
                     tv.setTypeface(Typeface.DEFAULT_BOLD);
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setTextColor(Color.BLACK);
+
+
                 } else if (level == 3) {
                     tv.setTypeface(null, Typeface.ITALIC);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
