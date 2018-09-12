@@ -1,10 +1,13 @@
 package com.pitaka.app.pitaka;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.graphics.Typeface;
 //import android.support.design.widget.NavigationView;
@@ -19,10 +22,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"1.BrahmajalaSuttan\",\"children\":[]},{\"title\":\"2.SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"3.Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
     //String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
+
+    private View mRightDrawerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+
         listView = (ListView) findViewById(R.id.listView1);
         final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
         final Button thripitakaBT = (Button) findViewById(R.id.thripitaka_Button_navigation);
@@ -141,7 +153,12 @@ public class MainActivity extends AppCompatActivity {
                 serchSuthraBT.setVisibility(View.VISIBLE);
             }
         });
+        /////////
 
+        mRightDrawerView = findViewById(R.id.Right_drawer);
+
+
+        /////////
         NLevelExpandableListView();
 
     }
@@ -258,6 +275,28 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
 
             }
+
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search_main:
+
+
+                drawer.openDrawer(mRightDrawerView);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
 
