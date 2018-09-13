@@ -26,8 +26,12 @@ import static java.lang.System.err;
 
 
 public class Sinhala extends Fragment {
+
+
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
+    int previousItem = -1;
+    public static int setPosition=0;
 
     HashMap<String, List<String>> listDataChild;
 
@@ -58,6 +62,19 @@ public class Sinhala extends Fragment {
         listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild); //here i'm getting an error now
 
         expListView.setAdapter(listAdapter);
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != previousItem )
+                    expListView.collapseGroup(previousItem );
+                previousItem = groupPosition;
+                setPosition=groupPosition;
+            }
+        });
+
         return view;
     }
 

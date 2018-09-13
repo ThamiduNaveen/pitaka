@@ -1,9 +1,9 @@
 package com.pitaka.app.pitaka;
 
-import android.content.Context;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +16,8 @@ import java.util.List;
 import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listData2Header;
 import static com.pitaka.app.pitaka.MainActivity.listData2Items;
-import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
-import static com.pitaka.app.pitaka.MainActivity.listDataItems;
+
+import static com.pitaka.app.pitaka.Sinhala.setPosition;
 
 
 public class Paali extends Fragment {
@@ -52,6 +52,21 @@ public class Paali extends Fragment {
         listAdapter = new ExpandableListAdapter(getContext(), listData2Header, listDataChild); //here i'm getting an error now
 
         expListView.setAdapter(listAdapter);
+
+
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousItem = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if(groupPosition != previousItem )
+                    expListView.collapseGroup(previousItem );
+                previousItem = groupPosition;
+            }
+        });
+
+
         return view;
     }
 
@@ -76,6 +91,18 @@ public class Paali extends Fragment {
 
 
 
+    }
+
+    public void openMenu(){
+        if(isUpdated){
+            try {
+                expListView.expandGroup(1);
+                Log.d("Done",String.valueOf(setPosition));
+            }
+            catch (Exception e){
+                Log.d("Error",String.valueOf(setPosition));
+            }
+        }
     }
 
 }
