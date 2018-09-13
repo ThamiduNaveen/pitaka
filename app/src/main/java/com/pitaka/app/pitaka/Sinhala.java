@@ -8,41 +8,63 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.pitaka.app.pitaka.MainActivity.stringBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.pitaka.app.pitaka.MainActivity.isUpdated;
+import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
+
+import static com.pitaka.app.pitaka.MainActivity.listDataItems;
 import static java.lang.System.err;
 
 
 
 public class Sinhala extends Fragment {
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
 
-
-    public TextView tv;
+    HashMap<String, List<String>> listDataChild;
 
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(getActivity(), stringBuffer, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sinhala, container, false);
+
+
+        View view = inflater.inflate(R.layout.fragment_sinhala, container, false);
+
+
+        // get the listview
+        expListView = (ExpandableListView) view.findViewById(R.id.listExView);
+
+        // preparing list data
+
+        prepareListData();
+
+
+        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild); //here i'm getting an error now
+
+        expListView.setAdapter(listAdapter);
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        View view = getView();
 
-        tv = view.findViewById(R.id.sampleView);
-        tv.setText(stringBuffer);
 
     }
 
@@ -52,15 +74,32 @@ public class Sinhala extends Fragment {
 
     }
 
+    public void prepareListData(){
 
+        listDataChild = new HashMap<String, List<String>>();
 
-    public void setData(String data){
+        if(!isUpdated){
 
-        try{
-            Toast.makeText(getActivity(), data, Toast.LENGTH_SHORT).show();
+            //initial view
         }
-        catch (Exception e){
-            Log.d("error",data);
+
+        else {
+            int i=0;
+            while (i<(listDataHeader.size())){
+                List<String> detail = new ArrayList<String>();
+                detail.add(listDataItems.get(i));
+                listDataChild.put(listDataHeader.get(i), detail);
+                i++;
+            }
         }
+
+
+
     }
+
+
+
+
+
+
 }

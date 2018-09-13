@@ -50,7 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
-    public static StringBuffer stringBuffer;
+    public static Boolean isUpdated=false;
+    public static List<String> listDataHeader = new ArrayList<String>();
+    public static List<String> listDataItems = new ArrayList<String>();
+
+    public static List<String> listData2Header = new ArrayList<String>();
+    public static List<String> listData2Items = new ArrayList<String>();
+
     ViewPager viewPager;
     DrawerLayout drawer;
 
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     List<NLevelItem> list;
     ListView listView;
 
-    String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"1.BrahmajalaSuttan\",\"children\":[]},{\"title\":\"2.SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"3.Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
+    String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"BrahmajalaSuttan\",\"children\":[]},{\"title\":\"SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
     //String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
 
     private View mRightDrawerView;
@@ -248,11 +254,23 @@ public class MainActivity extends AppCompatActivity {
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
-                            //createVerseList(Title);
-                            createVerseList("suthra1");
-                            viewPager.getAdapter().notifyDataSetChanged();
-                            drawer.closeDrawer(GravityCompat.START);
+                            //Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
+
+                            listDataHeader.clear();
+                            listDataItems.clear();
+                            listData2Header.clear();
+                            listData2Items.clear();
+                            try {
+                                createVerseList(Title);
+                                isUpdated = true;
+                                viewPager.getAdapter().notifyDataSetChanged();
+                                drawer.closeDrawer(GravityCompat.START);
+                            }
+
+                            catch (Exception e){
+                                Toast.makeText(MainActivity.this, "No database found!", Toast.LENGTH_SHORT).show();
+                            }
+
 
                         }
                     });
@@ -266,19 +284,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createVerseList(String verse) {
-        Cursor res = mDBHelper.getVerse(verse);
+        Cursor res = mDBHelper.getData(verse);
+
 
         if (res.getCount() == 0) {
-            //no
-
-
             return;
         } else {
-            stringBuffer = new StringBuffer();
 
             while (res.moveToNext()) {
-                stringBuffer.append(res.getString(0) + "\n");
-                Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
+
+                //Sinhala
+                listDataHeader.add(res.getString(0));
+                listDataItems.add(res.getString(2));
+                //Paali
+                listData2Header.add(res.getString(1));
+                listData2Items.add(res.getString(3));
 
             }
 

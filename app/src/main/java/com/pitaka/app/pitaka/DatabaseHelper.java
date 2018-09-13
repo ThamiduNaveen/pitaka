@@ -105,10 +105,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mNeedUpdate = true;
     }
 
-    public Cursor getVerse(String table){
+    public Cursor getData(String table){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
         Cursor res = sqLiteDatabase.rawQuery("select * from "+table,null);
         return res;
 
     }
+
+
 }

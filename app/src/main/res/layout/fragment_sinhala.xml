@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Sinhala"
-    android:id="@+id/sinhala">
+    android:tag="frag_sinhala">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/sampleView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="30dp"
-        android:text="Sinhala Version" />
+   <ExpandableListView
+       android:id="@+id/listExView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"></ExpandableListView>
+
+
 
 </RelativeLayout>
