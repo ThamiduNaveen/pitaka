@@ -63,6 +63,8 @@ public class Sinhala extends Fragment {
 
         expListView.setAdapter(listAdapter);
 
+
+
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
 
@@ -74,6 +76,10 @@ public class Sinhala extends Fragment {
                 setPosition=groupPosition;
             }
         });
+
+
+
+
 
         return view;
     }
@@ -107,7 +113,10 @@ public class Sinhala extends Fragment {
                 detail.add(listDataItems.get(i));
                 listDataChild.put(listDataHeader.get(i), detail);
                 i++;
+
             }
+
+
         }
 
 

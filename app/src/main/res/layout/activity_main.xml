@@ -83,6 +83,23 @@
 
         </ListView>
 
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:hint="Search Suthra"
+            android:padding="5dp" />
+
+        <ListView
+            android:layout_gravity="top"
+            android:id="@+id/listV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="137dp" />
+
+
         <!--<ExpandableListView-->
         <!--android:visibility="gone"-->
         <!--android:layout_width="fill_parent"-->
@@ -116,7 +133,6 @@
             android:text="ත්‍රිපිටකය සෙවීම "
             android:textColor="#744308"
             android:textSize="18sp" />
-
 
     </LinearLayout>
 

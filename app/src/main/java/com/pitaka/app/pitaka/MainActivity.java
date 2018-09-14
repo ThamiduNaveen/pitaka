@@ -1,25 +1,24 @@
 package com.pitaka.app.pitaka;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.graphics.Typeface;
-//import android.support.design.widget.NavigationView;
+
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,10 +28,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.pitaka.app.pitaka.nLevel.NLevelAdapter;
 import com.pitaka.app.pitaka.nLevel.NLevelItem;
@@ -57,8 +59,12 @@ public class MainActivity extends AppCompatActivity {
     public static List<String> listData2Header = new ArrayList<String>();
     public static List<String> listData2Items = new ArrayList<String>();
 
+    List<String> tableList = new ArrayList<String>();
+
+
     ViewPager viewPager;
     DrawerLayout drawer;
+    EditText searchBar;
 
 
     List<NLevelItem> list;
@@ -84,6 +90,30 @@ public class MainActivity extends AppCompatActivity {
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        ListView listV=findViewById(R.id.listV);
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
+        listV.setAdapter(adapter);
+
+        listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    listDataHeader.clear();
+                    listData2Header.clear();
+                    createVerseList(tableList.get(i));
+                    isUpdated = true;
+                    viewPager.getAdapter().notifyDataSetChanged();
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this, "No database found!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -137,15 +167,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         listView = (ListView) findViewById(R.id.listView1);
+        searchBar = findViewById(R.id.searchBar);
         final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
         final Button thripitakaBT = (Button) findViewById(R.id.thripitaka_Button_navigation);
-        serchSuthraBT.setVisibility(View.GONE);
+        thripitakaBT.setVisibility(View.GONE);
+        searchBar.setVisibility(View.GONE);
         serchSuthraBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listView.setVisibility(View.GONE);
                 serchSuthraBT.setVisibility(View.GONE);
                 thripitakaBT.setVisibility(View.VISIBLE);
+                searchBar.setVisibility(View.VISIBLE);
 
             }
         });
@@ -156,6 +189,36 @@ public class MainActivity extends AppCompatActivity {
                 listView.setVisibility(View.VISIBLE);
                 thripitakaBT.setVisibility(View.GONE);
                 serchSuthraBT.setVisibility(View.VISIBLE);
+                searchBar.setVisibility(View.GONE);
+            }
+        });
+
+        createTableNameList();
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tableList.clear();
+                createTableNameList();
+                for(int j=0;j<tableList.size();j++) {
+                    if (!tableList.get(j).toLowerCase().contains(searchBar.getText().toString().toLowerCase())) {
+
+                        tableList.remove(j);
+                    }
+                }
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
         /////////
@@ -189,6 +252,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
@@ -325,6 +390,54 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
+    }
+
+    public void searching() {
+
+        Cursor res = mDBHelper.search(searchBar.getText().toString());
+
+        if (res.getCount() == 0) {
+            //no data
+            tableList.add("No Data");
+
+            return;
+        } else {
+
+            while (res.moveToNext()) {
+                if(!res.getString(0).contains("_")){
+                    tableList.add(res.getString(0));
+                }
+
+
+            }
+
+
+        }
+
+
+    }
+    public void createTableNameList() {
+
+        Cursor res = mDBHelper.getTableNameList();
+
+        if (res.getCount() == 0) {
+            //no data
+
+            return;
+        } else {
+
+            while (res.moveToNext()) {
+                if(!res.getString(0).contains("_")){
+                    tableList.add(res.getString(0));
+                }
+
+
+            }
+
+
+        }
+
 
     }
 

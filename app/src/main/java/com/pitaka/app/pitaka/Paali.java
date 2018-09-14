@@ -55,6 +55,8 @@ public class Paali extends Fragment {
 
 
 
+
+
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousItem = -1;
 
@@ -63,7 +65,12 @@ public class Paali extends Fragment {
                 if(groupPosition != previousItem )
                     expListView.collapseGroup(previousItem );
                 previousItem = groupPosition;
+
             }
+
+
+
+
         });
 
 
@@ -86,23 +93,14 @@ public class Paali extends Fragment {
                 detail.add(listData2Items.get(i));
                 listDataChild.put(listData2Header.get(i), detail);
                 i++;
+
             }
+
         }
 
 
 
     }
 
-    public void openMenu(){
-        if(isUpdated){
-            try {
-                expListView.expandGroup(1);
-                Log.d("Done",String.valueOf(setPosition));
-            }
-            catch (Exception e){
-                Log.d("Error",String.valueOf(setPosition));
-            }
-        }
-    }
 
 }

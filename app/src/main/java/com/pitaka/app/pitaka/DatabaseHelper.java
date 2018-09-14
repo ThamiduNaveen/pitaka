@@ -112,5 +112,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getTableNameList(){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        //Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table' like '%\"+searchText+\"%' ",null);
+        Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table'",null);
+        return result;
+    }
+
+    public Cursor search(String searchText){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table' '%"+searchText+"%'",null);
+        return result;
+    }
 
 }
