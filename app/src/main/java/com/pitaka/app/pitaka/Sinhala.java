@@ -79,13 +79,6 @@ public class Sinhala extends Fragment {
 
 
 
-
-
-
-
-
-
-
         return view;
     }
 

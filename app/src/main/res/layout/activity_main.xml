@@ -89,6 +89,7 @@
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
             android:hint="Search Suthra"
+            android:inputType="text"
             android:padding="5dp" />
 
         <ListView
