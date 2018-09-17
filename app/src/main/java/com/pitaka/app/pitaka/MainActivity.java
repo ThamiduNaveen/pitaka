@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(1);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         ListView listV=findViewById(R.id.listV);
@@ -135,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
         mDBHelper = new DatabaseHelper(this);
 

@@ -94,6 +94,7 @@ public class Sinhala extends Fragment {
         super.onStart();
 
 
+
     }
 
     @Override
