@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     List<String> tableList2 = new ArrayList<String>();
 
 
+
+
     ViewPager viewPager;
     DrawerLayout drawer;
     EditText searchBar;
@@ -197,6 +199,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         createTableNameList();
+        final int count = tableList2.size();
+        for (int j = 0; j < count; j++) {
+
+                tableList.add(tableList2.get(j));
+
+        }
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -208,14 +216,12 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 tableList.clear();
                 createTableNameList();
-                int count=tableList.size();
-                Log.d("msg",String.valueOf(count));
-                for(int j=0;j<4;j++) {
-                    Log.d(tableList.get(j).toLowerCase(),String.valueOf(j));
-                    if (!(tableList.get(j).toLowerCase().startsWith(searchBar.getText().toString().toLowerCase()))) {
-                        Log.d(tableList.get(j).toLowerCase(),"Removed");
-                        tableList.remove(j);
-                        count--;
+
+
+                for(int j=0;j<count;j++) {
+
+                    if ((tableList2.get(j).toLowerCase().startsWith(searchBar.getText().toString().toLowerCase()))) {
+                        tableList.add(tableList2.get(j));
                     }
                 }
 
@@ -436,12 +442,11 @@ public class MainActivity extends AppCompatActivity {
 
             while (res.moveToNext()) {
                 if(!res.getString(0).contains("_")){
-                    tableList.add(res.getString(0));
+                    tableList2.add(res.getString(0));
                 }
 
 
             }
-
 
         }
 
