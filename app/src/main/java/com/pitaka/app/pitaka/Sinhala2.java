@@ -25,7 +25,7 @@ import static java.lang.System.err;
 
 
 
-public class Sinhala extends Fragment {
+public class Sinhala2 extends Fragment {
 
 
     ExpandableListAdapter listAdapter;

@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public static List<String> listData2Items = new ArrayList<String>();
 
     List<String> tableList = new ArrayList<String>();
+    List<String> tableList2 = new ArrayList<String>();
 
 
     ViewPager viewPager;
@@ -82,8 +84,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Sinhala"));
+        tabLayout.addTab(tabLayout.newTab().setText("Sinhala1"));
         tabLayout.addTab(tabLayout.newTab().setText("Paali"));
+        tabLayout.addTab(tabLayout.newTab().setText("Sinhala2"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = findViewById(R.id.pager);
@@ -205,10 +208,14 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 tableList.clear();
                 createTableNameList();
-                for(int j=0;j<tableList.size();j++) {
-                    if (!tableList.get(j).toLowerCase().contains(searchBar.getText().toString().toLowerCase())) {
-
+                int count=tableList.size();
+                Log.d("msg",String.valueOf(count));
+                for(int j=0;j<4;j++) {
+                    Log.d(tableList.get(j).toLowerCase(),String.valueOf(j));
+                    if (!(tableList.get(j).toLowerCase().startsWith(searchBar.getText().toString().toLowerCase()))) {
+                        Log.d(tableList.get(j).toLowerCase(),"Removed");
                         tableList.remove(j);
+                        count--;
                     }
                 }
 

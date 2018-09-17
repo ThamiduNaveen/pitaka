@@ -26,6 +26,10 @@ public class PagerAdapter  extends FragmentStatePagerAdapter{
                 Paali tab2=new Paali();
                 return tab2;
 
+            case 2:
+                Sinhala2 tab3=new Sinhala2();
+                return tab3;
+
              default:
                  return null;
         }
