@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView;
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     DrawerLayout drawer;
-    EditText searchBar;
-    EditText searchBar2;
+    EditText searchBar,searchBar3;
+    TextView searchBar2,searchBar4;
 
 
     List<NLevelItem> list;
@@ -173,13 +174,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         listView = (ListView) findViewById(R.id.listView1);
+
         searchBar = findViewById(R.id.searchBar);
         searchBar2 = findViewById(R.id.searchBar2);
+
+        searchBar3 = findViewById(R.id.searchBar3);
+        searchBar4 = findViewById(R.id.searchBar4);
 
         final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
         final Button thripitakaBT = (Button) findViewById(R.id.thripitaka_Button_navigation);
         thripitakaBT.setVisibility(View.GONE);
         searchBar.setVisibility(View.GONE);
+        searchBar2.setVisibility(View.GONE);
         serchSuthraBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 serchSuthraBT.setVisibility(View.GONE);
                 thripitakaBT.setVisibility(View.VISIBLE);
                 searchBar.setVisibility(View.VISIBLE);
+                searchBar2.setVisibility(View.VISIBLE);
 
             }
         });
@@ -198,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 thripitakaBT.setVisibility(View.GONE);
                 serchSuthraBT.setVisibility(View.VISIBLE);
                 searchBar.setVisibility(View.GONE);
+                searchBar2.setVisibility(View.GONE);
             }
         });
 
@@ -225,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
                     String msg = st.convertText(searchBar.getText().toString());
 
                     searchBar2.setText(msg);
-               // Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 
 
                     tableList.clear();
@@ -241,6 +248,80 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        final Button setType = (Button) findViewById(R.id.setType);
+        final Button back = (Button) findViewById(R.id.back);
+
+        final Spinner lanuage =findViewById(R.id.language);
+        final Spinner dictionary=findViewById(R.id.dictionary);
+
+        final List<String> dicList = new ArrayList<String>();
+        final List<String> lanList = new ArrayList<String>();
+
+        dicList.add("Dictonary 1");
+        dicList.add("Dictonary 2");
+        dicList.add("Dictonary 3");
+
+        lanList.add("Sinhala to Paali");
+        lanList.add("Paali to Sinhala");
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, dicList);
+
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lanList);
+
+        lanuage.setAdapter(adapter2);
+        dictionary.setAdapter(adapter3);
+
+        back.setVisibility(View.GONE);
+        searchBar3.setVisibility(View.GONE);
+        searchBar4.setVisibility(View.GONE);
+        setType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setType.setVisibility(View.GONE);
+                back.setVisibility(View.VISIBLE);
+                searchBar3.setVisibility(View.VISIBLE);
+                searchBar4.setVisibility(View.VISIBLE);
+                lanuage.setVisibility(View.GONE);
+                dictionary.setVisibility(View.GONE);
+
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                back.setVisibility(View.GONE);
+                setType.setVisibility(View.VISIBLE);
+                searchBar3.setVisibility(View.GONE);
+                searchBar4.setVisibility(View.GONE);
+                lanuage.setVisibility(View.VISIBLE);
+                dictionary.setVisibility(View.VISIBLE);
+            }
+        });
+
+        searchBar3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                SinglishTranslator st = new SinglishTranslator();
+                String msg = st.convertText(searchBar3.getText().toString());
+
+                searchBar4.setText(msg);
 
             }
 

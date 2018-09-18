@@ -92,15 +92,12 @@
             android:inputType="text"
             android:padding="5dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/searchBar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
-            android:inputType="text"
-            android:editable="false"
-
             android:padding="5dp" />
 
         <ListView
@@ -137,13 +134,61 @@
         </include>
 
 
-        <TextView
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/back"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
             android:padding="10dp"
-            android:text="ත්‍රිපිටකය සෙවීම "
+            android:text="Back"
             android:textColor="#744308"
             android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/searchBar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:hint="Search Dictionary..."
+            android:inputType="text"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/searchBar4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:padding="5dp" />
+
+        <Spinner
+            android:id="@+id/language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2">
+
+        </Spinner>
+
+        <Spinner
+            android:id="@+id/dictionary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2">
+
+        </Spinner>
+
+        <Button
+            android:id="@+id/setType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Enter"
+            android:textColor="#744308"
+            android:textSize="18sp" />
+
 
     </LinearLayout>
 
