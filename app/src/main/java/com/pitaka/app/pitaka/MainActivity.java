@@ -63,8 +63,10 @@ public class MainActivity extends AppCompatActivity {
     public static List<String> listData2Items = new ArrayList<String>();
 
     List<String> tableList = new ArrayList<String>();
-    List<String> dataList = new ArrayList<String>();
     List<String> tableList2 = new ArrayList<String>();
+
+    List<String> dataList = new ArrayList<String>();
+    List<String> meanList = new ArrayList<String>();
 
     ViewPager viewPager;
     DrawerLayout drawer;
@@ -285,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
         dictionary.setAdapter(adapter3);
 
 
-
+        searching();
         searchBar3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -306,6 +308,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        listV2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                dataList.get(i);
+                Toast.makeText(MainActivity.this, dataList.get(i)+"-"+meanList.get(i), Toast.LENGTH_SHORT).show();
             }
         });
         /////////
@@ -482,18 +492,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void searching() {
 
+        dataList.clear();
+        meanList.clear();
         Cursor res = mDBHelper.search(searchBar4.getText().toString());
 
         if (res.getCount() == 0) {
             //no data
-            dataList.add("No Data");
+            dataList.add("No Matches Found!");
 
             return;
         } else {
 
             while (res.moveToNext()) {
                 if(!res.getString(0).contains("_")){
-                    dataList.add(res.getString(0));
+                    dataList.add(res.getString(1));
+                    meanList.add(res.getString(0));
                     //Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
                 }
 

@@ -121,8 +121,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor search(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Sinhala like '%"+searchText+"%'",null);
+        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Paali like '%"+searchText+"%'",null);
         return result;
     }
+
 
 }
