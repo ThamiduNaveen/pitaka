@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "pitaka.sqlite";
+    private static String DB_NAME = "dictionary.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor search(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table' '%"+searchText+"%'",null);
+        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Sinhala like '%"+searchText+"%'",null);
         return result;
     }
 

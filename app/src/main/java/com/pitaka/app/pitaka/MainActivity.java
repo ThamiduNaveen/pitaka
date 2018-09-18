@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
+
     public static Boolean isUpdated=false;
     public static List<String> listDataHeader = new ArrayList<String>();
     public static List<String> listDataItems = new ArrayList<String>();
@@ -62,10 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public static List<String> listData2Items = new ArrayList<String>();
 
     List<String> tableList = new ArrayList<String>();
+    List<String> dataList = new ArrayList<String>();
     List<String> tableList2 = new ArrayList<String>();
-
-    int x=1;
-
 
     ViewPager viewPager;
     DrawerLayout drawer;
@@ -100,9 +99,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         ListView listV=findViewById(R.id.listV);
+        ListView listV2=findViewById(R.id.listV2);
 
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
         listV.setAdapter(adapter);
+
+        ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
+        listV2.setAdapter(adapterr);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -296,6 +299,8 @@ public class MainActivity extends AppCompatActivity {
 
                 searchBar4.setText(msg);
 
+                searching();
+
             }
 
             @Override
@@ -477,18 +482,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void searching() {
 
-        Cursor res = mDBHelper.search(searchBar.getText().toString());
+        Cursor res = mDBHelper.search(searchBar4.getText().toString());
 
         if (res.getCount() == 0) {
             //no data
-            tableList.add("No Data");
+            dataList.add("No Data");
 
             return;
         } else {
 
             while (res.moveToNext()) {
                 if(!res.getString(0).contains("_")){
-                    tableList.add(res.getString(0));
+                    dataList.add(res.getString(0));
+                    //Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
                 }
 
 
