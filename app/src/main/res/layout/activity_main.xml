@@ -133,17 +133,6 @@
 
         </include>
 
-
-        <Button
-            android:id="@+id/back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
-            android:padding="10dp"
-            android:text="Back"
-            android:textColor="#744308"
-            android:textSize="18sp" />
-
         <EditText
             android:id="@+id/searchBar3"
             android:layout_width="match_parent"
@@ -180,14 +169,7 @@
 
         </Spinner>
 
-        <Button
-            android:id="@+id/setType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="Enter"
-            android:textColor="#744308"
-            android:textSize="18sp" />
+
 
 
     </LinearLayout>

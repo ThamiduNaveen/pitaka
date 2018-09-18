@@ -257,8 +257,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button setType = (Button) findViewById(R.id.setType);
-        final Button back = (Button) findViewById(R.id.back);
+
 
         final Spinner lanuage =findViewById(R.id.language);
         final Spinner dictionary=findViewById(R.id.dictionary);
@@ -282,33 +281,7 @@ public class MainActivity extends AppCompatActivity {
         lanuage.setAdapter(adapter2);
         dictionary.setAdapter(adapter3);
 
-        back.setVisibility(View.GONE);
-        searchBar3.setVisibility(View.GONE);
-        searchBar4.setVisibility(View.GONE);
-        setType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setType.setVisibility(View.GONE);
-                back.setVisibility(View.VISIBLE);
-                searchBar3.setVisibility(View.VISIBLE);
-                searchBar4.setVisibility(View.VISIBLE);
-                lanuage.setVisibility(View.GONE);
-                dictionary.setVisibility(View.GONE);
 
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                back.setVisibility(View.GONE);
-                setType.setVisibility(View.VISIBLE);
-                searchBar3.setVisibility(View.GONE);
-                searchBar4.setVisibility(View.GONE);
-                lanuage.setVisibility(View.VISIBLE);
-                dictionary.setVisibility(View.VISIBLE);
-            }
-        });
 
         searchBar3.addTextChangedListener(new TextWatcher() {
             @Override
