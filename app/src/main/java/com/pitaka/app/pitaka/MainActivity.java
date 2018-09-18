@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
         listV.setAdapter(adapter);
 
-        ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
+        final ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
         listV2.setAdapter(adapterr);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -302,6 +302,8 @@ public class MainActivity extends AppCompatActivity {
                 searchBar4.setText(msg);
 
                 searching();
+
+                adapterr.notifyDataSetChanged();
 
             }
 
