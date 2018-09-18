@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "pitaka.sqlite";
+    private static String DB_NAME = "dictionary.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
