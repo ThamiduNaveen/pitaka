@@ -6,7 +6,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+
         if (android.os.Build.VERSION.SDK_INT >= 17)
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
         else
@@ -121,7 +121,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor search(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Paali like '%"+searchText+"%'",null);
+       // Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Paali like '%"+searchText+"%'",null);
+        Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table'",null);
         return result;
     }
 
