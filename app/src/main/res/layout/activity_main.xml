@@ -92,6 +92,15 @@
             android:inputType="text"
             android:padding="5dp" />
 
+        <EditText
+            android:id="@+id/searchBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_below="@+id/textView1"
+            android:inputType="text"
+            android:padding="5dp" />
+
         <ListView
             android:layout_gravity="top"
             android:id="@+id/listV"

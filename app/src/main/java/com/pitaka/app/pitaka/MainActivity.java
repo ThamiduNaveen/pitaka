@@ -63,12 +63,13 @@ public class MainActivity extends AppCompatActivity {
     List<String> tableList = new ArrayList<String>();
     List<String> tableList2 = new ArrayList<String>();
 
-
+    int x=1;
 
 
     ViewPager viewPager;
     DrawerLayout drawer;
     EditText searchBar;
+    EditText searchBar2;
 
 
     List<NLevelItem> list;
@@ -173,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView1);
         searchBar = findViewById(R.id.searchBar);
+        searchBar2 = findViewById(R.id.searchBar2);
+
         final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
         final Button thripitakaBT = (Button) findViewById(R.id.thripitaka_Button_navigation);
         thripitakaBT.setVisibility(View.GONE);
@@ -210,20 +213,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                tableList.clear();
-                createTableNameList();
 
 
-                for(int j=0;j<count;j++) {
 
-                    if ((tableList2.get(j).toLowerCase().startsWith(searchBar.getText().toString().toLowerCase()))) {
-                        tableList.add(tableList2.get(j));
+                    SinglishTranslator st = new SinglishTranslator();
+                    String msg = st.convertText(searchBar.getText().toString());
+
+                    searchBar2.setText(msg);
+               // Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+
+                    tableList.clear();
+                    createTableNameList();
+
+
+                    for (int j = 0; j < count; j++) {
+
+                        if (tableList2.get(j).toLowerCase().startsWith(msg)) {
+                            tableList.add(tableList2.get(j));
+                        }
                     }
-                }
+
 
 
 
