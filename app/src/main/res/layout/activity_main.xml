@@ -99,6 +99,7 @@
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
             android:inputType="text"
+            android:editable="false"
             android:padding="5dp" />
 
         <ListView
