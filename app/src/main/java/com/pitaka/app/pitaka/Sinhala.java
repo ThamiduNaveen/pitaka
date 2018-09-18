@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +30,8 @@ public class Sinhala extends Fragment {
 
 
     ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
+    static ExpandableListView expListView;
+    Button button;
     int previousItem = -1;
     public static int setPosition=0;
 
@@ -51,6 +53,7 @@ public class Sinhala extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sinhala, container, false);
 
 
+
         // get the listview
         expListView = (ExpandableListView) view.findViewById(R.id.listExView);
 
@@ -65,20 +68,19 @@ public class Sinhala extends Fragment {
 
 
 
+
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
 
             @Override
             public void onGroupExpand(int groupPosition) {
+
                 if(groupPosition != previousItem )
                     expListView.collapseGroup(previousItem );
                 previousItem = groupPosition;
                 setPosition=groupPosition;
             }
         });
-
-
-
 
         return view;
     }
@@ -95,6 +97,12 @@ public class Sinhala extends Fragment {
     public void onResume() {
         super.onResume();
 
+    }
+
+    public static void expandList(int position) {
+        if(isUpdated){
+            expListView.expandGroup(position,true);
+        }
     }
 
     public void prepareListData(){

@@ -17,13 +17,14 @@ import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listData2Header;
 import static com.pitaka.app.pitaka.MainActivity.listData2Items;
 
+import static com.pitaka.app.pitaka.Sinhala.expandList;
 import static com.pitaka.app.pitaka.Sinhala.setPosition;
 
 
 public class Paali extends Fragment {
 
     ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
+    static ExpandableListView expPaliListView;
 
     HashMap<String, List<String>> listDataChild;
 
@@ -42,7 +43,7 @@ public class Paali extends Fragment {
 
 
         // get the listview
-        expListView = (ExpandableListView) view.findViewById(R.id.listExView);
+        expPaliListView = (ExpandableListView) view.findViewById(R.id.listExView);
 
         // preparing list data
 
@@ -51,19 +52,20 @@ public class Paali extends Fragment {
 
         listAdapter = new ExpandableListAdapter(getContext(), listData2Header, listDataChild); //here i'm getting an error now
 
-        expListView.setAdapter(listAdapter);
+        expPaliListView.setAdapter(listAdapter);
 
 
 
 
 
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        expPaliListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousItem = -1;
 
             @Override
             public void onGroupExpand(int groupPosition) {
+                expandList(groupPosition);
                 if(groupPosition != previousItem )
-                    expListView.collapseGroup(previousItem );
+                    expPaliListView.collapseGroup(previousItem );
                 previousItem = groupPosition;
 
             }
@@ -74,7 +76,14 @@ public class Paali extends Fragment {
         });
 
 
+
         return view;
+    }
+
+    public static void expandPaliList(int position) {
+        if(isUpdated){
+            expPaliListView.expandGroup(position,true);
+        }
     }
 
     public void prepareListData(){
