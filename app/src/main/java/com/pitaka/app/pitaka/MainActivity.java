@@ -295,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
         dicList.add("Dictionary 3");
 
         lanList.add("Sinhala to Paali");
-
         lanList.add("Paali to Sinhala");
 
 
