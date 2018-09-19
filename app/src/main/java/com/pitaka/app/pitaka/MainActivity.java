@@ -53,7 +53,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper mDBHelper;
-    private SQLiteDatabase mDb;
+    private DatabaseHelper2 mDBHelper2;
+    private SQLiteDatabase mDb,mDb2;
 
     public static Boolean isUpdated=false;
     public static List<String> listDataHeader = new ArrayList<String>();
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //connect dictionary database
+
         mDBHelper = new DatabaseHelper(this);
 
         try {
@@ -161,6 +164,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mDBHelper.openDataBase();
+
+        //connect suthra database
+
+        mDBHelper2 = new DatabaseHelper2(this);
+
+        try {
+            mDBHelper2.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
+
+        try {
+            mDb2 = mDBHelper2.getWritableDatabase();
+        } catch (SQLException mSQLException) {
+            throw mSQLException;
+        }
+
+        mDBHelper2.openDataBase();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_bar);
 
@@ -287,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
         dictionary.setAdapter(adapter3);
 
 
-        searching();
+       // searching();
         searchBar3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -448,7 +469,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createVerseList(String verse) {
-        Cursor res = mDBHelper.getData(verse);
+        Cursor res = mDBHelper2.getData(verse);
 
 
         if (res.getCount() == 0) {
@@ -522,7 +543,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void createTableNameList() {
 
-        Cursor res = mDBHelper.getTableNameList();
+        Cursor res = mDBHelper2.getTableNameList();
 
         if (res.getCount() == 0) {
             //no data
