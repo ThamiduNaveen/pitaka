@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "dictionary.sqlite";
+public class DatabaseHelper2 extends SQLiteOpenHelper {
+    private static String DB_NAME = "pitaka.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final Context mContext;
     private boolean mNeedUpdate = false;
 
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper2(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
 
         if (android.os.Build.VERSION.SDK_INT >= 17)
@@ -112,13 +112,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-
-    public Cursor search(String searchText){
+    public Cursor getTableNameList(){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Paali like '%"+searchText+"%'",null);
+        //Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table' like '%\"+searchText+\"%' ",null);
+        Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table'",null);
         return result;
-
     }
-
 
 }
