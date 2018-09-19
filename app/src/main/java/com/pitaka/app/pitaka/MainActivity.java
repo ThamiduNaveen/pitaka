@@ -666,13 +666,8 @@ public class MainActivity extends AppCompatActivity {
                 if(!res.getString(0).contains("_")){
                     tableList2.add(res.getString(0));
                 }
-
-
             }
-
         }
-
-
     }
 
     //Uncomment following section to create jsonString and save in external storage.

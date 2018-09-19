@@ -1,18 +1,12 @@
 package com.pitaka.app.pitaka;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,10 +14,7 @@ import java.util.List;
 
 import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
-
 import static com.pitaka.app.pitaka.MainActivity.listDataItems;
-import static com.pitaka.app.pitaka.Paali.expandPaliList;
-import static java.lang.System.err;
 
 
 
@@ -85,20 +76,6 @@ public class Sinhala extends Fragment {
         });
 
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
     public static void expandList(int position) {
