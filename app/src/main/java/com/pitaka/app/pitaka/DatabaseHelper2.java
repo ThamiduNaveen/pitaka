@@ -5,15 +5,15 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "dictionary.sqlite";
+public class DatabaseHelper2 extends SQLiteOpenHelper {
+    private static String DB_NAME = "pitaka.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private final Context mContext;
     private boolean mNeedUpdate = false;
 
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper2(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
 
         if (android.os.Build.VERSION.SDK_INT >= 17)
@@ -82,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (mDataBase != null) {
            // Toast.makeText(mContext, "Done!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
         }
         return mDataBase != null;
     }
@@ -105,50 +105,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mNeedUpdate = true;
     }
 
-//    public Cursor getData(String table){
-//        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-//        Cursor res = sqLiteDatabase.rawQuery("select * from "+table,null);
-//        return res;
-//
-//    }
-
-
-    public Cursor searchDictionary1(String searchText){
+    public Cursor getData(String table){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Sinhala like '%"+searchText+"%'",null);
-        return result;
-
-    }
-    public Cursor searchDictionary2(String searchText){
-        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary2 where Sinhala like '%"+searchText+"%'",null);
-        return result;
-
-    }
-    public Cursor searchDictionary3(String searchText){
-        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary3 where Sinhala like '%"+searchText+"%'",null);
-        return result;
-
-    }
-    public Cursor searchDictionary4(String searchText){
-        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary4 where Sinhala like '%"+searchText+"%'",null);
-        return result;
-
-    }
-    public Cursor searchDictionary5(String searchText){
-        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary5 where Sinhala like '%"+searchText+"%'",null);
-        return result;
-
-    }
-    public Cursor searchDictionary6(String searchText){
-        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary6 where Sinhala like '%"+searchText+"%'",null);
-        return result;
+        Cursor res = sqLiteDatabase.rawQuery("select * from "+table,null);
+        return res;
 
     }
 
+    public Cursor getTableNameList(){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        //Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table' like '%\"+searchText+\"%' ",null);
+        Cursor result=sqLiteDatabase.rawQuery("select name from sqlite_master where type='table'",null);
+        return result;
+    }
 
 }
