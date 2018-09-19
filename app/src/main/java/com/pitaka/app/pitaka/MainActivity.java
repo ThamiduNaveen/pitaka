@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,35 +53,43 @@ public class MainActivity extends AppCompatActivity {
     private static final int WRITE_EXTERNAL_STO_CODE = 1;
 
     public static Boolean isUpdated=false;
+    //data lists for Sinhala1 fragment
     public static List<String> listDataHeader = new ArrayList<String>();
     public static List<String> listDataItems = new ArrayList<String>();
-
+    //data lists for Paali fragment
     public static List<String> listData2Header = new ArrayList<String>();
     public static List<String> listData2Items = new ArrayList<String>();
-
+    //data lists for Sinhala2 fragment
     public static List<String> listData3Header = new ArrayList<String>();
     public static List<String> listData3Items = new ArrayList<String>();
 
+    //for search
     List<String> tableList = new ArrayList<String>();
     List<String> tableList2 = new ArrayList<String>();
 
+    //for dictionary
     List<String> dataList = new ArrayList<String>();
     List<String> meanList = new ArrayList<String>();
 
+    //dictionary setting
     List<String> dicList = new ArrayList<String>();
     List<String> lanList = new ArrayList<String>();
-
-    ViewPager viewPager;
-    DrawerLayout drawer;
-    EditText searchBar,searchBar3;
-    TextView searchBar2,searchBar4;
-
-    List<NLevelItem> list;
-    ListView listView;
-
     public int selection1=0;
     public int selection2=0;
 
+    ViewPager viewPager;
+    DrawerLayout drawer;
+
+    //search
+    EditText searchBar,searchBar3;
+    TextView searchBar2,searchBar4;
+
+    //Navdrawer
+    List<NLevelItem> list;
+    ListView listView;
+
+
+    //Navdrawer data
     String jsonStringList = "[{\"title\":\"විනයපිටක\",\"children\":[]},{\"title\":\"සුත්තපිටක\",\"children\":[{\"title\":\"දීඝනිකාය\",\"children\":[{\"title\":\"සීලක්ඛන්ධවග්ගපාළි\",\"children\":[{\"title\":\"1. බ්‍රහ්මජාලසුත්තං\",\"children\":[]},{\"title\":\"2. සාමඤ්ඤඵලසුත්තං\",\"children\":[]},{\"title\":\"3. අම්බට්ඨසුත්තං\",\"children\":[]},{\"title\":\"4. සොණදණ්ඩසුත්තං\",\"children\":[]},{\"title\":\"5. කූටදන්තසුත්තං\",\"children\":[]},{\"title\":\"6. මහාලිසුත්තං\",\"children\":[]},{\"title\":\"7. ජාලියසුත්තං\",\"children\":[]},{\"title\":\"8. මහාසීහනාදසුත්තං\",\"children\":[]},{\"title\":\"9. පොට්ඨපාදසුත්තං\",\"children\":[]},{\"title\":\"10. සුභසුත්තං\",\"children\":[]},{\"title\":\"11. කෙවට්ටසුත්තං\",\"children\":[]},{\"title\":\"12. ලොහිච්චසුත්තං\",\"children\":[]},{\"title\":\"13. තෙවිජ්ජසුත්තං\",\"children\":[]}]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[{\"title\":\"1. මහාපදානසුත්තං\",\"children\":[]},{\"title\":\"2. මහානිදානසුත්තං\",\"children\":[]},{\"title\":\"3. මහාපරිනිබ්බානසුත්තං\",\"children\":[]},{\"title\":\"4. මහාසුදස්සනසුත්තං\",\"children\":[]},{\"title\":\"5. ජනවසභසුත්තං\",\"children\":[]},{\"title\":\"6. මහාගොවින්දසුත්තං\",\"children\":[]},{\"title\":\"7. මහාසමයසුත්තං\",\"children\":[]},{\"title\":\"8. සක්කපඤ්හසුත්තං\",\"children\":[]},{\"title\":\"9. මහාසතිපට්ඨානසුත්තං\",\"children\":[]},{\"title\":\"10. පායාසිසුත්තං\",\"children\":[]}]},{\"title\":\"පාථිකවග්ගපාළි\",\"children\":[{\"title\":\"1. පාථිකසුත්තං\",\"children\":[]},{\"title\":\"2. උදුම්බරිකසුත්තං\",\"children\":[]},{\"title\":\"3. චක්කවත්තිසුත්තං\",\"children\":[]},{\"title\":\"4. අග්ගඤ්ඤසුත්තං\",\"children\":[]},{\"title\":\"5. සම්පසාදනීයසුත්තං\",\"children\":[]},{\"title\":\"6. පාසාදිකසුත්තං\",\"children\":[]},{\"title\":\"7. ලක්ඛණසුත්තං\",\"children\":[]},{\"title\":\"8. සිඞ්ගාලසුත්තං\",\"children\":[]},{\"title\":\"9. ආටානාටියසුත්තං\",\"children\":[]},{\"title\":\"10. සඞ්ගීතිසුත්තං\",\"children\":[]},{\"title\":\"11. දසුත්තරසුත්තං\",\"children\":[]}]}]},{\"title\":\"මජ්ඣිමනිකාය\",\"children\":[{\"title\":\"මූලපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. මූලපරියායවග්ගො\",\"children\":[]},{\"title\":\"2. සීහනාදවග්ගො\",\"children\":[]},{\"title\":\"3. ඔපම්මවග්ගො\",\"children\":[]},{\"title\":\"4. මහායමකවග්ගො\",\"children\":[]},{\"title\":\"5. චූළයමකවග්ගො\",\"children\":[]}]},{\"title\":\"මජ්ඣිමපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. ගහපතිවග්ගො\",\"children\":[]},{\"title\":\"2. භික්ඛුවග්ගො\",\"children\":[]},{\"title\":\"3. පරිබ්බාජකවග්ගො\",\"children\":[]},{\"title\":\"4. රාජවග්ගො\",\"children\":[]},{\"title\":\"5. බ්‍රාහ්මණවග්ගො\",\"children\":[]}]},{\"title\":\"උපරිපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. දෙවදහවග්ගො\",\"children\":[]},{\"title\":\"2. අනුපදවග්ගො\",\"children\":[]},{\"title\":\"3. සුඤ්ඤතවග්ගො\",\"children\":[]},{\"title\":\"4. විභඞ්ගවග්ගො\",\"children\":[]},{\"title\":\"5. සළායතනවග්ගො\",\"children\":[]}]}]},{\"title\":\"සංයුත්තනිකාය\",\"children\":[{\"title\":\"සගාථාවග්ගපාළි\",\"children\":[]},{\"title\":\"නිදානවග්ගපාළි\",\"children\":[]},{\"title\":\"ඛන්ධවග්ගපාළි\",\"children\":[]},{\"title\":\"සළායතනවග්ගපාළි\",\"children\":[]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[]}]},{\"title\":\"අඞ්ගුත්තරනිකාය\",\"children\":[{\"title\":\"එකකනිපාතපාළි\",\"children\":[]},{\"title\":\"දුකනිපාතපාළි\",\"children\":[]},{\"title\":\"තිකනිපාතපාළි\",\"children\":[]},{\"title\":\"චතුක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"පඤ්චකනිපාතපාළි\",\"children\":[]},{\"title\":\"ඡක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"සත්තකනිපාතපාළි\",\"children\":[]},{\"title\":\"අට්ඨකාදිනිපාතපාළි\",\"children\":[]},{\"title\":\"නවකනිපාතපාළි\",\"children\":[]},{\"title\":\"දසකනිපාතපාළි\",\"children\":[]},{\"title\":\"එකාදසකනිපාතපාළි\",\"children\":[]}]},{\"title\":\"ඛුද්දකනිකාය\",\"children\":[{\"title\":\"ඛුද්දකපාඨපාළි\",\"children\":[]},{\"title\":\"ධම්මපදපාළි\",\"children\":[]},{\"title\":\"උදානපාළි\",\"children\":[]},{\"title\":\"ඉතිවුත්තකපාළි\",\"children\":[]},{\"title\":\"සුත්තනිපාතපාළි\",\"children\":[]},{\"title\":\"විමානවත්ථුපාළි\",\"children\":[]},{\"title\":\"පෙතවත්ථුපාළි\",\"children\":[]},{\"title\":\"ථෙරගාථාපාළි\",\"children\":[]},{\"title\":\"ථෙරීගාථාපාළි\",\"children\":[]},{\"title\":\"අපදානපාළි-1\",\"children\":[]},{\"title\":\"අපදානපාළි-2\",\"children\":[]},{\"title\":\"බුද්ධවංසපාළි\",\"children\":[]},{\"title\":\"චරියාපිටකපාළි\",\"children\":[]},{\"title\":\"ජාතකපාළි-1\",\"children\":[]},{\"title\":\"ජාතකපාළි-2\",\"children\":[]},{\"title\":\"මහානිද්දෙසපාළි\",\"children\":[]},{\"title\":\"චූළනිද්දෙසපාළි\",\"children\":[]},{\"title\":\"පටිසම්භිදාමග්ගපාළි\",\"children\":[]},{\"title\":\"නෙත්තිප්පකරණපාළි\",\"children\":[]},{\"title\":\"මිලින්දපඤ්හපාළි\",\"children\":[]},{\"title\":\"පෙටකොපදෙසපාළි\",\"children\":[]}]}]},{\"title\":\"අභිධම්මපිටක\",\"children\":[]}]";
 
 
@@ -94,6 +101,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //connect dictionary database
+
+        mDBHelper = new DatabaseHelper(this);
+
+        try {
+            mDBHelper.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
+
+        try {
+            mDb = mDBHelper.getWritableDatabase();
+        } catch (SQLException mSQLException) {
+            throw mSQLException;
+        }
+
+        mDBHelper.openDataBase();
+
+        //connect suthra database
+
+        mDBHelper2 = new DatabaseHelper2(this);
+
+        try {
+            mDBHelper2.updateDataBase();
+        } catch (IOException mIOException) {
+            throw new Error("UnableToUpdateDatabase");
+        }
+
+        try {
+            mDb2 = mDBHelper2.getWritableDatabase();
+        } catch (SQLException mSQLException) {
+            throw mSQLException;
+        }
+
+        mDBHelper2.openDataBase();
 
         //Uncomment following section to create jsonString and save in external storage.
 
@@ -111,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-
+        //tab initializing
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Sinhala1"));
         tabLayout.addTab(tabLayout.newTab().setText("Paali"));
@@ -127,9 +170,11 @@ public class MainActivity extends AppCompatActivity {
         ListView listV=findViewById(R.id.listV);
         final ListView listV2=findViewById(R.id.listV2);
 
+        //search
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
         listV.setAdapter(adapter);
 
+        //dictionary
         final ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
         listV2.setAdapter(adapterr);
 
@@ -171,42 +216,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //connect dictionary database
 
-        mDBHelper = new DatabaseHelper(this);
-
-        try {
-            mDBHelper.updateDataBase();
-        } catch (IOException mIOException) {
-            throw new Error("UnableToUpdateDatabase");
-        }
-
-        try {
-            mDb = mDBHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
-
-        mDBHelper.openDataBase();
-
-        //connect suthra database
-
-        mDBHelper2 = new DatabaseHelper2(this);
-
-        try {
-            mDBHelper2.updateDataBase();
-        } catch (IOException mIOException) {
-            throw new Error("UnableToUpdateDatabase");
-        }
-
-        try {
-            mDb2 = mDBHelper2.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
-
-        mDBHelper2.openDataBase();
-
+        //Action bar settings
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_bar);
 
         setSupportActionBar(toolbar);
@@ -225,10 +236,10 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView1);
 
-        searchBar = findViewById(R.id.searchBar);
+        searchBar = findViewById(R.id.searchBar);//search
         searchBar2 = findViewById(R.id.searchBar2);
 
-        searchBar3 = findViewById(R.id.searchBar3);
+        searchBar3 = findViewById(R.id.searchBar3);//dictionary
         searchBar4 = findViewById(R.id.searchBar4);
 
         final Button serchSuthraBT = (Button) findViewById(R.id.search_Button_navigation);
@@ -236,6 +247,8 @@ public class MainActivity extends AppCompatActivity {
         thripitakaBT.setVisibility(View.GONE);
         searchBar.setVisibility(View.GONE);
         searchBar2.setVisibility(View.GONE);
+
+        //toggle views in left nav drawer
         serchSuthraBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        //SEARCHING ACTION
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -309,13 +323,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final Spinner lanuage = findViewById(R.id.language);
-        final Spinner dictionary = findViewById(R.id.dictionary);
-
-
+        final Spinner lanuage = findViewById(R.id.language);//conversion type selection
+        final Spinner dictionary = findViewById(R.id.dictionary);//dictionary selection
 
         dicList.add("Dictionary 1");
-        dicList.add("Dictionary 1");
+        dicList.add("Dictionary 2");
         dicList.add("Dictionary 3");
 
         lanList.add("Sinhala to Paali");
@@ -377,6 +389,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         searching();
+        //dictionary searching
         searchBar3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -402,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
+        //Dictionary-get meaning
         listV2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -540,6 +554,7 @@ public class MainActivity extends AppCompatActivity {
         return superChild;
     }
 
+    //suthra list for search
     public void createVerseList(String verse) {
         Cursor res = mDBHelper2.getData(verse);
 
@@ -590,11 +605,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //dictionary searching method
     public void searching() {
-
         dataList.clear();
         meanList.clear();
-        Log.d("Err",String.valueOf(selection1));
         Cursor res;
         try{
             if(selection1==0&&selection2==0){
@@ -637,6 +651,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //suthra list
     public void createTableNameList() {
 
         Cursor res = mDBHelper2.getTableNameList();
