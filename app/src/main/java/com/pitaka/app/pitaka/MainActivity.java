@@ -1,16 +1,12 @@
 package com.pitaka.app.pitaka;
 
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -143,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     listDataHeader.clear();
                     listData2Header.clear();
+                    listData3Header.clear();
                     createVerseList(tableList.get(i));
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
@@ -518,6 +515,8 @@ public class MainActivity extends AppCompatActivity {
                             listDataItems.clear();
                             listData2Header.clear();
                             listData2Items.clear();
+                            listData3Header.clear();
+                            listData3Items.clear();
                             try {
                                 createVerseList(Title);
                                 isUpdated = true;
