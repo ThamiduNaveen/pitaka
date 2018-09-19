@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -80,9 +80,9 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
     public boolean openDataBase() throws SQLException {
         mDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         if (mDataBase != null) {
-            Toast.makeText(mContext, "Done!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "Done!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
         }
         return mDataBase != null;
     }

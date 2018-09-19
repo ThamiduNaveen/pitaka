@@ -5,12 +5,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-
-import android.os.Bundle;
 import android.graphics.Typeface;
-
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -28,21 +25,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.pitaka.app.pitaka.nLevel.NLevelAdapter;
 import com.pitaka.app.pitaka.nLevel.NLevelItem;
 import com.pitaka.app.pitaka.nLevel.NLevelView;
 import com.pitaka.app.pitaka.nLevel.SomeObject;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -70,14 +64,19 @@ public class MainActivity extends AppCompatActivity {
     List<String> dataList = new ArrayList<String>();
     List<String> meanList = new ArrayList<String>();
 
+    List<String> dicList = new ArrayList<String>();
+    List<String> lanList = new ArrayList<String>();
+
     ViewPager viewPager;
     DrawerLayout drawer;
     EditText searchBar,searchBar3;
     TextView searchBar2,searchBar4;
 
-
     List<NLevelItem> list;
     ListView listView;
+
+    public int selection1=0;
+    public int selection2=0;
 
     String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"BrahmajalaSuttan\",\"children\":[]},{\"title\":\"SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
     //String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         ListView listV=findViewById(R.id.listV);
-        ListView listV2=findViewById(R.id.listV2);
+        final ListView listV2=findViewById(R.id.listV2);
 
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
         listV.setAdapter(adapter);
@@ -289,15 +288,15 @@ public class MainActivity extends AppCompatActivity {
         final Spinner lanuage = findViewById(R.id.language);
         final Spinner dictionary = findViewById(R.id.dictionary);
 
-        final List<String> dicList = new ArrayList<String>();
-        final List<String> lanList = new ArrayList<String>();
 
-        dicList.add("Dictonary 1");
-        dicList.add("Dictonary 2");
-        dicList.add("Dictonary 3");
+
+        dicList.add("Dictionary 1");
+        dicList.add("Dictionary 1");
+        dicList.add("Dictionary 3");
 
         lanList.add("Sinhala to Paali");
         lanList.add("Paali to Sinhala");
+
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, dicList);
@@ -308,8 +307,51 @@ public class MainActivity extends AppCompatActivity {
         lanuage.setAdapter(adapter2);
         dictionary.setAdapter(adapter3);
 
+        dictionary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==0){
+                    selection1=0;
+                }
+                else if(i==1){
+                    selection1=1;
+                }
 
-       // searching();
+                searching();
+                adapterr.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        lanuage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i==0){
+                    selection1=0;
+                }
+                else if(i==1){
+                    selection1=1;
+                }
+                else if(i==2){
+                    selection1=2;
+                }
+                searching();
+                adapterr.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        searching();
         searchBar3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -334,14 +376,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
         listV2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                dataList.get(i);
-                Toast.makeText(MainActivity.this, dataList.get(i)+"-"+meanList.get(i), Toast.LENGTH_SHORT).show();
+
+                try{
+                    t.setText(dataList.get(i)+"-"+meanList.get(i));
+                    t.show();
+                }
+                catch (Exception e){
+                }
+
             }
         });
+
         /////////
 
         mRightDrawerView = findViewById(R.id.Right_drawer);
@@ -518,30 +567,49 @@ public class MainActivity extends AppCompatActivity {
 
         dataList.clear();
         meanList.clear();
-        Cursor res = mDBHelper.search(searchBar4.getText().toString());
-
-        if (res.getCount() == 0) {
-            //no data
-            dataList.add("No Matches Found!");
-
-            return;
-        } else {
-
-            while (res.moveToNext()) {
-                if(!res.getString(0).contains("_")){
-                    dataList.add(res.getString(1));
-                    meanList.add(res.getString(0));
-                    //Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
-                }
-
-
+        Log.d("Err",String.valueOf(selection1));
+        Cursor res;
+        try{
+            if(selection1==0&&selection2==0){
+                res = mDBHelper.searchDictionary1(searchBar4.getText().toString());
+            }
+            else if(selection1==1&&selection2==0){
+                res = mDBHelper.searchDictionary2(searchBar4.getText().toString());
+            }
+            else if(selection1==0&&selection2==1){
+                res = mDBHelper.searchDictionary3(searchBar4.getText().toString());
+            }
+            else if(selection1==1&&selection2==1){
+                res = mDBHelper.searchDictionary4(searchBar4.getText().toString());
+            }
+            else if(selection1==0&&selection2==2){
+                res = mDBHelper.searchDictionary5(searchBar4.getText().toString());
+            }
+            else{
+                res = mDBHelper.searchDictionary6(searchBar4.getText().toString());
             }
 
+            if (res.getCount() == 0) {
+                //no data
+                dataList.add("No Matches Found!");
+                return;
+            } else {
 
+                while (res.moveToNext()) {
+                    if(!res.getString(0).contains("_")){
+                        dataList.add(res.getString(0));
+                        meanList.add(res.getString(1));
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            dataList.add("Dictionary Not Found!");
         }
 
 
     }
+
     public void createTableNameList() {
 
         Cursor res = mDBHelper2.getTableNameList();

@@ -80,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean openDataBase() throws SQLException {
         mDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
         if (mDataBase != null) {
-            Toast.makeText(mContext, "Done!", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "Done!", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
         }
@@ -105,17 +105,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mNeedUpdate = true;
     }
 
-    public Cursor getData(String table){
+//    public Cursor getData(String table){
+//        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+//        Cursor res = sqLiteDatabase.rawQuery("select * from "+table,null);
+//        return res;
+//
+//    }
+
+
+    public Cursor searchDictionary1(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor res = sqLiteDatabase.rawQuery("select * from "+table,null);
-        return res;
+        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Sinhala like '%"+searchText+"%'",null);
+        return result;
 
     }
-
-
-    public Cursor search(String searchText){
+    public Cursor searchDictionary2(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Paali like '%"+searchText+"%'",null);
+        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary2 where Sinhala like '%"+searchText+"%'",null);
+        return result;
+
+    }
+    public Cursor searchDictionary3(String searchText){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary3 where Sinhala like '%"+searchText+"%'",null);
+        return result;
+
+    }
+    public Cursor searchDictionary4(String searchText){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary4 where Sinhala like '%"+searchText+"%'",null);
+        return result;
+
+    }
+    public Cursor searchDictionary5(String searchText){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary5 where Sinhala like '%"+searchText+"%'",null);
+        return result;
+
+    }
+    public Cursor searchDictionary6(String searchText){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        Cursor result=sqLiteDatabase.rawQuery("select * from Dictionary6 where Sinhala like '%"+searchText+"%'",null);
         return result;
 
     }
