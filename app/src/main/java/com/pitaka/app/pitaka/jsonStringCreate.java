@@ -263,7 +263,6 @@ public class jsonStringCreate {
         } else {
             tempStr = tempStr.substring(0, tempStr.length() - 1);
         }
-
         pos = outStr.indexOf("[2]");
         sub1 = outStr.substring(0, pos + 3);
         sub2 = outStr.substring(pos + 3);
