@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
     public static List<String> listData2Header = new ArrayList<String>();
     public static List<String> listData2Items = new ArrayList<String>();
 
+    public static List<String> listData3Header = new ArrayList<String>();
+    public static List<String> listData3Items = new ArrayList<String>();
+
     List<String> tableList = new ArrayList<String>();
     List<String> tableList2 = new ArrayList<String>();
 
@@ -416,15 +419,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                     long arg3) {
                 TextView t = (TextView) arg1.findViewById(R.id.textView);
-                //          t.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_search_black_24dp,0,0,0);
                 ((NLevelAdapter) listView.getAdapter()).toggle(arg2);
                 ((NLevelAdapter) listView.getAdapter()).getFilter().filter();
-
             }
         });
-
-
-
     }
 
     private void nestedLoop(String levelList, NLevelItem nLevelItem, final LayoutInflater inflater, int level) {
@@ -528,12 +526,17 @@ public class MainActivity extends AppCompatActivity {
 
             while (res.moveToNext()) {
 
-                //Sinhala
+                //Sinhala1
                 listDataHeader.add(res.getString(0));
                 listDataItems.add(res.getString(2));
+
                 //Paali
                 listData2Header.add(res.getString(1));
                 listData2Items.add(res.getString(3));
+
+                //Sinhala2
+                listData3Header.add(res.getString(0));
+                listData3Items.add(res.getString(3));
 
             }
 

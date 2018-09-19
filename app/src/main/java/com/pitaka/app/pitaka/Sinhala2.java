@@ -1,27 +1,19 @@
 package com.pitaka.app.pitaka;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import static com.pitaka.app.pitaka.MainActivity.isUpdated;
-import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
-
-import static com.pitaka.app.pitaka.MainActivity.listDataItems;
-import static java.lang.System.err;
+import static com.pitaka.app.pitaka.MainActivity.listData3Header;
+import static com.pitaka.app.pitaka.MainActivity.listData3Items;
 
 
 
@@ -59,7 +51,7 @@ public class Sinhala2 extends Fragment {
         prepareListData();
 
 
-        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild); //here i'm getting an error now
+        listAdapter = new ExpandableListAdapter(getContext(), listData3Header, listDataChild); //here i'm getting an error now
 
         expListView.setAdapter(listAdapter);
 
@@ -113,10 +105,10 @@ public class Sinhala2 extends Fragment {
 
         else {
             int i=0;
-            while (i<(listDataHeader.size())){
+            while (i<(listData3Header.size())){
                 List<String> detail = new ArrayList<String>();
-                detail.add(listDataItems.get(i));
-                listDataChild.put(listDataHeader.get(i), detail);
+                detail.add(listData3Items.get(i));
+                listDataChild.put(listData3Header.get(i), detail);
                 i++;
 
             }
