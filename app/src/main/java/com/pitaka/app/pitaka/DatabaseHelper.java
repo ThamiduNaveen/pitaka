@@ -117,6 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
         Cursor result=sqLiteDatabase.rawQuery("select * from pwbhimi where Paali like '%"+searchText+"%'",null);
         return result;
+
     }
 
 
