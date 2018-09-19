@@ -1,14 +1,18 @@
 package com.pitaka.app.pitaka;
 
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.graphics.Typeface;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.view.GravityCompat;
@@ -43,6 +47,7 @@ import com.pitaka.app.pitaka.nLevel.NLevelItem;
 import com.pitaka.app.pitaka.nLevel.NLevelView;
 import com.pitaka.app.pitaka.nLevel.SomeObject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -55,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
 
-    public static Boolean isUpdated=false;
+    public static Boolean isUpdated = false;
     public static List<String> listDataHeader = new ArrayList<String>();
     public static List<String> listDataItems = new ArrayList<String>();
 
@@ -68,15 +73,15 @@ public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     DrawerLayout drawer;
-    EditText searchBar,searchBar3;
-    TextView searchBar2,searchBar4;
+    EditText searchBar, searchBar3;
+    TextView searchBar2, searchBar4;
 
 
     List<NLevelItem> list;
     ListView listView;
 
-    String jsonStringList = "[{\"title\":\"winyapitaka\",\"children\":[]},{\"title\":\"suthrapitaka\",\"children\":[{\"title\":\"deeganikaya\",\"children\":[{\"title\":\"seelakkandaWaggapali\",\"children\":[{\"title\":\"BrahmajalaSuttan\",\"children\":[]},{\"title\":\"SaamanchapalaSuththan\",\"children\":[]},{\"title\":\"Ambattasuththan\",\"children\":[]}]},{\"title\":\"mahawaggapaali\",\"children\":[]}]},{\"title\":\"majjimanikaya\",\"children\":[]},{\"title\":\"sanukthanikaya\",\"children\":[]}]},{\"title\":\"abhidammapitaka\",\"children\":[]}]";
-    //String jsonStringList = "[{\"title\":\"Root 1\",\"children\":[{\"title\":\"Child 11\",\"children\":[{\"title\":\"Extended Child 111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[{\"title\":\"Super Extended Child 1111\",\"children\":[]}]}]}]},{\"title\":\"Extended Child 112\",\"children\":[]},{\"title\":\"Extended Child 113\",\"children\":[]}]},{\"title\":\"Child 12\",\"children\":[{\"title\":\"Extended Child 121\",\"children\":[]},{\"title\":\"Extended Child 122\",\"children\":[]}]},{\"title\":\"Child 13\",\"children\":[]}]},{\"title\":\"Root 2\",\"children\":[{\"title\":\"Child 21\",\"children\":[{\"title\":\"Extended Child 211\",\"children\":[]},{\"title\":\"Extended Child 212\",\"children\":[]},{\"title\":\"Extended Child 213\",\"children\":[]}]},{\"title\":\"Child 22\",\"children\":[{\"title\":\"Extended Child 221\",\"children\":[]},{\"title\":\"Extended Child 222\",\"children\":[]}]},{\"title\":\"Child 23\",\"children\":[]}]},{\"title\":\"Root 1\",\"children\":[]}]";
+    //String jsonStringList;
+    String jsonStringList = "[{\"title\":\"විනයපිටක\",\"children\":[]},{\"title\":\"සුත්තපිටක\",\"children\":[{\"title\":\"දීඝනිකාය\",\"children\":[{\"title\":\"සීලක්ඛන්ධවග්ගපාළි\",\"children\":[{\"title\":\"1. බ්‍රහ්මජාලසුත්තං\",\"children\":[]},{\"title\":\"2. සාමඤ්ඤඵලසුත්තං\",\"children\":[]},{\"title\":\"3. අම්බට්ඨසුත්තං\",\"children\":[]},{\"title\":\"4. සොණදණ්ඩසුත්තං\",\"children\":[]},{\"title\":\"5. කූටදන්තසුත්තං\",\"children\":[]},{\"title\":\"6. මහාලිසුත්තං\",\"children\":[]},{\"title\":\"7. ජාලියසුත්තං\",\"children\":[]},{\"title\":\"8. මහාසීහනාදසුත්තං\",\"children\":[]},{\"title\":\"9. පොට්ඨපාදසුත්තං\",\"children\":[]},{\"title\":\"10. සුභසුත්තං\",\"children\":[]},{\"title\":\"11. කෙවට්ටසුත්තං\",\"children\":[]},{\"title\":\"12. ලොහිච්චසුත්තං\",\"children\":[]},{\"title\":\"13. තෙවිජ්ජසුත්තං\",\"children\":[]}]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[{\"title\":\"1. මහාපදානසුත්තං\",\"children\":[]},{\"title\":\"2. මහානිදානසුත්තං\",\"children\":[]},{\"title\":\"3. මහාපරිනිබ්බානසුත්තං\",\"children\":[]},{\"title\":\"4. මහාසුදස්සනසුත්තං\",\"children\":[]},{\"title\":\"5. ජනවසභසුත්තං\",\"children\":[]},{\"title\":\"6. මහාගොවින්දසුත්තං\",\"children\":[]},{\"title\":\"7. මහාසමයසුත්තං\",\"children\":[]},{\"title\":\"8. සක්කපඤ්හසුත්තං\",\"children\":[]},{\"title\":\"9. මහාසතිපට්ඨානසුත්තං\",\"children\":[]},{\"title\":\"10. පායාසිසුත්තං\",\"children\":[]}]},{\"title\":\"පාථිකවග්ගපාළි\",\"children\":[{\"title\":\"1. පාථිකසුත්තං\",\"children\":[]},{\"title\":\"2. උදුම්බරිකසුත්තං\",\"children\":[]},{\"title\":\"3. චක්කවත්තිසුත්තං\",\"children\":[]},{\"title\":\"4. අග්ගඤ්ඤසුත්තං\",\"children\":[]},{\"title\":\"5. සම්පසාදනීයසුත්තං\",\"children\":[]},{\"title\":\"6. පාසාදිකසුත්තං\",\"children\":[]},{\"title\":\"7. ලක්ඛණසුත්තං\",\"children\":[]},{\"title\":\"8. සිඞ්ගාලසුත්තං\",\"children\":[]},{\"title\":\"9. ආටානාටියසුත්තං\",\"children\":[]},{\"title\":\"10. සඞ්ගීතිසුත්තං\",\"children\":[]},{\"title\":\"11. දසුත්තරසුත්තං\",\"children\":[]}]}]},{\"title\":\"මජ්ඣිමනිකාය\",\"children\":[{\"title\":\"මූලපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. මූලපරියායවග්ගො\",\"children\":[]},{\"title\":\"2. සීහනාදවග්ගො\",\"children\":[]},{\"title\":\"3. ඔපම්මවග්ගො\",\"children\":[]},{\"title\":\"4. මහායමකවග්ගො\",\"children\":[]},{\"title\":\"5. චූළයමකවග්ගො\",\"children\":[]}]},{\"title\":\"මජ්ඣිමපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. ගහපතිවග්ගො\",\"children\":[]},{\"title\":\"2. භික්ඛුවග්ගො\",\"children\":[]},{\"title\":\"3. පරිබ්බාජකවග්ගො\",\"children\":[]},{\"title\":\"4. රාජවග්ගො\",\"children\":[]},{\"title\":\"5. බ්‍රාහ්මණවග්ගො\",\"children\":[]}]},{\"title\":\"උපරිපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. දෙවදහවග්ගො\",\"children\":[]},{\"title\":\"2. අනුපදවග්ගො\",\"children\":[]},{\"title\":\"3. සුඤ්ඤතවග්ගො\",\"children\":[]},{\"title\":\"4. විභඞ්ගවග්ගො\",\"children\":[]},{\"title\":\"5. සළායතනවග්ගො\",\"children\":[]}]}]},{\"title\":\"සංයුත්තනිකාය\",\"children\":[{\"title\":\"සගාථාවග්ගපාළි\",\"children\":[]},{\"title\":\"නිදානවග්ගපාළි\",\"children\":[]},{\"title\":\"ඛන්ධවග්ගපාළි\",\"children\":[]},{\"title\":\"සළායතනවග්ගපාළි\",\"children\":[]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[]}]},{\"title\":\"අඞ්ගුත්තරනිකාය\",\"children\":[{\"title\":\"එකකනිපාතපාළි\",\"children\":[]},{\"title\":\"දුකනිපාතපාළි\",\"children\":[]},{\"title\":\"තිකනිපාතපාළි\",\"children\":[]},{\"title\":\"චතුක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"පඤ්චකනිපාතපාළි\",\"children\":[]},{\"title\":\"ඡක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"සත්තකනිපාතපාළි\",\"children\":[]},{\"title\":\"අට්ඨකාදිනිපාතපාළි\",\"children\":[]},{\"title\":\"නවකනිපාතපාළි\",\"children\":[]},{\"title\":\"දසකනිපාතපාළි\",\"children\":[]},{\"title\":\"එකාදසකනිපාතපාළි\",\"children\":[]}]},{\"title\":\"ඛුද්දකනිකාය\",\"children\":[{\"title\":\"ඛුද්දකපාඨපාළි\",\"children\":[]},{\"title\":\"ධම්මපදපාළි\",\"children\":[]},{\"title\":\"උදානපාළි\",\"children\":[]},{\"title\":\"ඉතිවුත්තකපාළි\",\"children\":[]},{\"title\":\"සුත්තනිපාතපාළි\",\"children\":[]},{\"title\":\"විමානවත්ථුපාළි\",\"children\":[]},{\"title\":\"පෙතවත්ථුපාළි\",\"children\":[]},{\"title\":\"ථෙරගාථාපාළි\",\"children\":[]},{\"title\":\"ථෙරීගාථාපාළි\",\"children\":[]},{\"title\":\"අපදානපාළි-1\",\"children\":[]},{\"title\":\"අපදානපාළි-2\",\"children\":[]},{\"title\":\"බුද්ධවංසපාළි\",\"children\":[]},{\"title\":\"චරියාපිටකපාළි\",\"children\":[]},{\"title\":\"ජාතකපාළි-1\",\"children\":[]},{\"title\":\"ජාතකපාළි-2\",\"children\":[]},{\"title\":\"මහානිද්දෙසපාළි\",\"children\":[]},{\"title\":\"චූළනිද්දෙසපාළි\",\"children\":[]},{\"title\":\"පටිසම්භිදාමග්ගපාළි\",\"children\":[]},{\"title\":\"නෙත්තිප්පකරණපාළි\",\"children\":[]},{\"title\":\"මිලින්දපඤ්හපාළි\",\"children\":[]},{\"title\":\"පෙටකොපදෙසපාළි\",\"children\":[]}]}]},{\"title\":\"අභිධම්මපිටක\",\"children\":[]}]";
 
     private View mRightDrawerView;
 
@@ -85,6 +90,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(permission, WRITE_EXTERNAL_STO_CODE);
+            } else {
+                jsonStringCreate js = new jsonStringCreate();
+                js.write();
+            }
+        } else {
+            jsonStringCreate js = new jsonStringCreate();
+            js.write();
+        }
+
+
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Sinhala1"));
@@ -98,13 +120,13 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(1);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        ListView listV=findViewById(R.id.listV);
-        ListView listV2=findViewById(R.id.listV2);
+        ListView listV = findViewById(R.id.listV);
+        ListView listV2 = findViewById(R.id.listV2);
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, tableList);
         listV.setAdapter(adapter);
 
-        ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
+        ArrayAdapter<String> adapterr = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, dataList);
         listV2.setAdapter(adapterr);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,9 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
                     drawer.closeDrawer(GravityCompat.START);
-                }
-
-                catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "No database found!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -216,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         final int count = tableList2.size();
         for (int j = 0; j < count; j++) {
 
-                tableList.add(tableList2.get(j));
+            tableList.add(tableList2.get(j));
 
         }
 
@@ -231,25 +251,22 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
 
+                SinglishTranslator st = new SinglishTranslator();
+                String msg = st.convertText(searchBar.getText().toString());
 
-                    SinglishTranslator st = new SinglishTranslator();
-                    String msg = st.convertText(searchBar.getText().toString());
-
-                    searchBar2.setText(msg);
-
-
-                    tableList.clear();
-                    createTableNameList();
+                searchBar2.setText(msg);
 
 
-                    for (int j = 0; j < count; j++) {
+                tableList.clear();
+                createTableNameList();
 
-                        if (tableList2.get(j).toLowerCase().startsWith(msg)) {
-                            tableList.add(tableList2.get(j));
-                        }
+
+                for (int j = 0; j < count; j++) {
+
+                    if (tableList2.get(j).toLowerCase().startsWith(msg)) {
+                        tableList.add(tableList2.get(j));
                     }
-
-
+                }
 
 
             }
@@ -261,9 +278,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-        final Spinner lanuage =findViewById(R.id.language);
-        final Spinner dictionary=findViewById(R.id.dictionary);
+        final Spinner lanuage = findViewById(R.id.language);
+        final Spinner dictionary = findViewById(R.id.dictionary);
 
         final List<String> dicList = new ArrayList<String>();
         final List<String> lanList = new ArrayList<String>();
@@ -283,7 +299,6 @@ public class MainActivity extends AppCompatActivity {
 
         lanuage.setAdapter(adapter2);
         dictionary.setAdapter(adapter3);
-
 
 
         searchBar3.addTextChangedListener(new TextWatcher() {
@@ -314,6 +329,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         /////////
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         NLevelExpandableListView();
 
     }
@@ -339,7 +361,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }
@@ -417,9 +438,7 @@ public class MainActivity extends AppCompatActivity {
                                 isUpdated = true;
                                 viewPager.getAdapter().notifyDataSetChanged();
                                 drawer.closeDrawer(GravityCompat.START);
-                            }
-
-                            catch (Exception e){
+                            } catch (Exception e) {
                                 Toast.makeText(MainActivity.this, "No database found!", Toast.LENGTH_SHORT).show();
                             }
 
@@ -492,7 +511,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                if(!res.getString(0).contains("_")){
+                if (!res.getString(0).contains("_")) {
                     dataList.add(res.getString(0));
                     //Toast.makeText(this, res.getString(0), Toast.LENGTH_SHORT).show();
                 }
@@ -505,6 +524,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public void createTableNameList() {
 
         Cursor res = mDBHelper.getTableNameList();
@@ -516,7 +536,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                if(!res.getString(0).contains("_")){
+                if (!res.getString(0).contains("_")) {
                     tableList2.add(res.getString(0));
                 }
 
@@ -528,4 +548,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private static final int WRITE_EXTERNAL_STO_CODE = 1;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case WRITE_EXTERNAL_STO_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    jsonStringCreate js = new jsonStringCreate();
+                    js.write();
+                } else {
+                    Toast.makeText(this, "Enable permission to save image", Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
 }
