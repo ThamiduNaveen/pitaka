@@ -42,6 +42,7 @@ import com.pitaka.app.pitaka.nLevel.NLevelAdapter;
 import com.pitaka.app.pitaka.nLevel.NLevelItem;
 import com.pitaka.app.pitaka.nLevel.NLevelView;
 import com.pitaka.app.pitaka.nLevel.SomeObject;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -264,8 +265,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final Spinner lanuage =findViewById(R.id.language);
-        final Spinner dictionary=findViewById(R.id.dictionary);
+        final Spinner lanuage = findViewById(R.id.language);
+        final Spinner dictionary = findViewById(R.id.dictionary);
 
         final List<String> dicList = new ArrayList<String>();
         final List<String> lanList = new ArrayList<String>();

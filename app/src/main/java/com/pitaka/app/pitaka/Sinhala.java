@@ -22,6 +22,7 @@ import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
 
 import static com.pitaka.app.pitaka.MainActivity.listDataItems;
+import static com.pitaka.app.pitaka.Paali.expandPaliList;
 import static java.lang.System.err;
 
 
@@ -74,11 +75,12 @@ public class Sinhala extends Fragment {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-
-                if(groupPosition != previousItem )
-                    expListView.collapseGroup(previousItem );
-                previousItem = groupPosition;
-                setPosition=groupPosition;
+//                expandPaliList(groupPosition);
+                if(groupPosition != previousItem ) {
+                    expListView.collapseGroup(previousItem);
+                    previousItem = groupPosition;
+                    setPosition = groupPosition;
+                }
             }
         });
 
@@ -126,8 +128,6 @@ public class Sinhala extends Fragment {
 
 
         }
-
-
 
     }
 
