@@ -364,7 +364,6 @@ public class MainActivity extends AppCompatActivity {
         dicList.add("ශබ්ද කෝෂය 3");
 
 
-
         final Button paaliBT = (Button) findViewById(R.id.paaliBT);
         final Button sinhalaBT = (Button) findViewById(R.id.sinhalaBT);
         paaliBT.setVisibility(View.GONE);
