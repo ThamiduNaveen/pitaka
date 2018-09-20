@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -175,7 +177,26 @@ public class MainActivity extends AppCompatActivity {
         listV.setAdapter(adapter);
 
         //dictionary
-        final ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
+        final LayoutInflater mInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        final ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View row;
+
+                if (null == convertView) {
+                    row = mInflater.inflate(R.layout.support_simple_spinner_dropdown_item, null);
+                } else {
+                    row = convertView;
+                }
+
+                TextView tv = (TextView) row.findViewById(android.R.id.text1);
+                tv.setText(Html.fromHtml(getItem(position)));
+                //tv.setText(getItem(position));
+
+                return row;
+            }
+        };
         listV2.setAdapter(adapterr);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -639,7 +660,8 @@ public class MainActivity extends AppCompatActivity {
 
                 while (res.moveToNext()) {
                     if(!res.getString(0).contains("_")){
-                        dataList.add(res.getString(0) + "|ජාලසුත්|" + res.getString(1));
+                        String htmlColourStr="<font color=#cc0029>"+res.getString(0)+"</font> <font color=#ffcc00>"+"|ජාලසුත්|"+"</font>"+"</font> <font color=#ff0000>"+res.getString(1)+"</font>";
+                        dataList.add(htmlColourStr);
                         meanList.add(res.getString(1));
                     }
                 }

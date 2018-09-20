@@ -71,8 +71,6 @@ public class Paali extends Fragment {
             }
 
 
-
-
         });
 
 
