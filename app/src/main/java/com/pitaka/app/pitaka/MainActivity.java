@@ -31,7 +31,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -673,7 +672,7 @@ public class MainActivity extends AppCompatActivity {
 
                 while (res.moveToNext()) {
                     if(!res.getString(0).contains("_")){
-                        String htmlColourStr="<font color=#FD7E7E>"+res.getString(0)+"</font> <font color=#3BFF00>"+"|ජාලසුත්|"+"</font>"+"<font color=#ffffff>"+res.getString(1)+"</font>";
+                        String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" + res.getString(1) + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
                         dataList.add(htmlColourStr);
                         meanList.add(res.getString(1));
                     }
@@ -684,8 +683,6 @@ public class MainActivity extends AppCompatActivity {
            // dataList.add("Dictionary Not Found!");
             Toast.makeText(this, "Dictionary Not Found", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     //suthra list
