@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Sinhala"
-    android:tag="frag_sinhala">
+    android:tag="frag_sinhala"
+    android:background="@color/fragmentBackground">
 
    <ExpandableListView
        android:id="@+id/listExView"

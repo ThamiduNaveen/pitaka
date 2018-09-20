@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -23,7 +24,8 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark">
+            android:background="@drawable/rab_header"
+            app:tabIndicatorHeight="5dp">
 
         </android.support.design.widget.TabLayout>
 
@@ -55,30 +57,34 @@
         <Button
             android:id="@+id/thripitaka_Button_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:padding="10dp"
             android:text="ත්‍රිපිටකය"
             android:textColor="#744308"
-            android:textSize="18sp" />
+            android:textAlignment="center"
+            android:background="@drawable/round_coners"
+            android:textSize="18sp"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/search_Button_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:background="@drawable/round_coners"
             android:drawableLeft="@drawable/ic_search_black_24dp"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="ත්‍රිපිටකය සෙවීම  "
             android:textColor="#744308"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_margin="5dp"/>
 
-
+<!--left list view-->
         <ListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
+            android:layout_gravity="top"
+            android:background="@color/colorBackNav"
             android:padding="5dp">
 
         </ListView>
@@ -87,21 +93,18 @@
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
-            android:background="@drawable/round_coners"
+            android:background="@drawable/round_corners_white"
             android:hint="Search Suthra"
             android:inputType="text"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:layout_margin="5dp"/>
 
         <TextView
             android:id="@+id/searchBar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView1"
-            android:layout_below="@+id/textView1"
             android:padding="5dp"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textStyle="bold" />
 
         <ListView
@@ -141,8 +144,8 @@
             android:id="@+id/searchBar3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_coners"
-            android:hint="Search Dictionary..."
+            android:background="@drawable/round_corners_white"
+            android:hint="ශබ්ද කෝෂය සොයන්න"
             android:inputType="text"
             android:padding="5dp"
             android:textStyle="bold" />

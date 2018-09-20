@@ -157,10 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
         //tab initializing
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Sinhala1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Paali"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sinhala2"));
+        tabLayout.addTab(tabLayout.newTab().setText("සිංහල 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("පාලි"));
+        tabLayout.addTab(tabLayout.newTab().setText("සිංහල 2"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
 
         viewPager = findViewById(R.id.pager);
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -172,7 +174,30 @@ public class MainActivity extends AppCompatActivity {
         final ListView listV2=findViewById(R.id.listV2);
 
         //search
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
+        final LayoutInflater mInflater2 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View row;
+
+                if (null == convertView) {
+                    row = mInflater2.inflate(R.layout.support_simple_spinner_dropdown_item, null);
+                } else {
+                    row = convertView;
+                }
+
+                TextView tv = (TextView) row.findViewById(android.R.id.text1);
+                tv.setSingleLine(false);
+                tv.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                tv.setBackgroundResource(R.drawable.back);
+                tv.setTextColor(Color.WHITE);
+                tv.setPadding(25,25,25,25);
+                tv.setText(getItem(position));
+
+                return row;
+            }
+        };
         listV.setAdapter(adapter);
 
         //dictionary
@@ -250,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Pitaka.lk");
+        getSupportActionBar().setTitle("kcthripitaka සංස්කරණය");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -542,6 +567,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (level == 3) {
                     tv.setTypeface(null, Typeface.ITALIC);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
+                    tv.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_format_align_justify_white_24dp, 0, 0, 0);
                     tv.setTextColor(Color.WHITE);
 
                 } else {
