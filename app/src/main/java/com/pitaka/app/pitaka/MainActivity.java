@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -17,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -180,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
         //dictionary
         final LayoutInflater mInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        final ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList){
+        final ArrayAdapter<String> adapterr = new ArrayAdapter<String>(this, R.layout.dictionary_item, dataList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent)
             {
