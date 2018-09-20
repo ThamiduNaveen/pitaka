@@ -161,9 +161,9 @@
 
         <Spinner
             android:id="@+id/language"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
+            android:layout_gravity="center"
             android:layout_below="@+id/textView2"
             android:popupBackground="#FAAC58">
 
@@ -181,13 +181,15 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:hint="dictionary"-->
             <!--android:textColorHint="#05ab9a"-->
-            <!--/>-->
+    \
+
+        <!--/>-->
 
         <Spinner
             android:id="@+id/dictionary"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
+            android:layout_gravity="center"
             android:layout_below="@+id/textView2"
             android:popupBackground="#FAAC58"
             >
@@ -201,7 +203,7 @@
             android:layout_height="fill_parent"
             android:layout_margin="10dp"
 
-            android:background="#FAAC58"/>
+            android:background="@color/colorBackNav"/>
 
 
 

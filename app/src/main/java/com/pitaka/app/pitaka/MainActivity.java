@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -191,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 TextView tv = (TextView) row.findViewById(android.R.id.text1);
+                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_white_24dp, 0, 0, 0);
+                tv.setSingleLine(false);
+                tv.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                tv.setBackgroundResource(R.drawable.back);
+                tv.setPadding(25,25,25,25);
                 tv.setText(Html.fromHtml(getItem(position)));
                 //tv.setText(getItem(position));
 
@@ -347,9 +354,9 @@ public class MainActivity extends AppCompatActivity {
         final Spinner lanuage = findViewById(R.id.language);//conversion type selection
         final Spinner dictionary = findViewById(R.id.dictionary);//dictionary selection
 
-        dicList.add("Dictionary 1");
-        dicList.add("Dictionary 2");
-        dicList.add("Dictionary 3");
+        dicList.add("ශබ්ද කෝෂය 1");
+        dicList.add("ශබ්ද කෝෂය 2");
+        dicList.add("ශබ්ද කෝෂය 3");
 
         lanList.add("Sinhala to Paali");
         lanList.add("Paali to Sinhala");
@@ -435,18 +442,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
+   //     final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
         //Dictionary-get meaning
         listV2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                try{
-                    t.setText(dataList.get(i)+"-"+meanList.get(i));
-                    t.show();
-                }
-                catch (Exception e){
-                }
+//                try{
+//                    t.setText(dataList.get(i)+"-"+meanList.get(i));
+//                    t.show();
+//                }
+//                catch (Exception e){
+//                }
 
             }
         });
@@ -660,7 +667,7 @@ public class MainActivity extends AppCompatActivity {
 
                 while (res.moveToNext()) {
                     if(!res.getString(0).contains("_")){
-                        String htmlColourStr="<font color=#cc0029>"+res.getString(0)+"</font> <font color=#ffcc00>"+"|ජාලසුත්|"+"</font>"+"</font> <font color=#ff0000>"+res.getString(1)+"</font>";
+                        String htmlColourStr="<font color=#FD7E7E>"+res.getString(0)+"</font> <font color=#3BFF00>"+"|ජාලසුත්|"+"</font>"+"<font color=#ffffff>"+res.getString(1)+"</font>";
                         dataList.add(htmlColourStr);
                         meanList.add(res.getString(1));
                     }
@@ -668,7 +675,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         catch (Exception e){
-            dataList.add("Dictionary Not Found!");
+           // dataList.add("Dictionary Not Found!");
+            Toast.makeText(this, "Dictionary Not Found", Toast.LENGTH_SHORT).show();
         }
 
 
