@@ -164,38 +164,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@+id/textView2"
-            android:popupBackground="#FAAC58">
+            android:background="@color/colorBackNav"
+            android:popupBackground="#00000000"
+            android:layout_below="@+id/textView2">
 
         </Spinner>
-        <!--<com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner-->
-            <!--android:id="@+id/language"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="language"-->
-            <!--android:textColorHint="#05ab9a"-->
-             <!--/>-->
-        <!--<com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner-->
-            <!--android:id="@+id/dictionary"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="dictionary"-->
-            <!--android:textColorHint="#05ab9a"-->
 
 
         <!--/>-->
 
-        <Spinner
-            android:id="@+id/dictionary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_below="@+id/textView2"
-            android:popupBackground="#FAAC58"
-            android:background=""
-            >
 
-        </Spinner>
+
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/paaliBT"
+                android:text="paali"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sinhalaBT"
+                android:text="sinhala"/>
+
 
         <ListView
             android:layout_gravity="top"

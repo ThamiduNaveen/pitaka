@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
     //dictionary setting
     List<String> dicList = new ArrayList<String>();
-    List<String> lanList = new ArrayList<String>();
     public int selection1=0;
     public int selection2=0;
 
@@ -352,45 +352,54 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Spinner lanuage = findViewById(R.id.language);//conversion type selection
-        final Spinner dictionary = findViewById(R.id.dictionary);//dictionary selection
+
+//        Spinner spinner = (Spinner) findViewById(R.id.pioedittxt5);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.travelreasons, R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
 
         dicList.add("ශබ්ද කෝෂය 1");
         dicList.add("ශබ්ද කෝෂය 2");
         dicList.add("ශබ්ද කෝෂය 3");
 
-        lanList.add("Sinhala to Paali");
-        lanList.add("Paali to Sinhala");
 
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, dicList);
+        final Button paaliBT = (Button) findViewById(R.id.paaliBT);
+        final Button sinhalaBT = (Button) findViewById(R.id.sinhalaBT);
+        paaliBT.setVisibility(View.GONE);
 
-
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lanList);
-
-        lanuage.setAdapter(adapter2);
-        dictionary.setAdapter(adapter3);
-
-        dictionary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        paaliBT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){
-                    selection1=0;
-                }
-                else if(i==1){
-                    selection1=1;
-                }
-
+            public void onClick(View view) {
+                paaliBT.setVisibility(View.GONE);
+                sinhalaBT.setVisibility(View.VISIBLE);
+                selection1=0;
                 searching();
                 adapterr.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
+        sinhalaBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sinhalaBT.setVisibility(View.GONE);
+                paaliBT.setVisibility(View.VISIBLE);
+                selection1=1;
+                searching();
+                adapterr.notifyDataSetChanged();
+            }
+        });
+
+
+
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                R.layout.simple_spinner, dicList);
+
+
+        lanuage.setAdapter(adapter2);
 
         lanuage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
