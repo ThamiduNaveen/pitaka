@@ -208,8 +208,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
                     listDataHeader.clear();
+                    listDataItems.clear();
                     listData2Header.clear();
+                    listData2Items.clear();
                     listData3Header.clear();
+                    listData3Items.clear();
                     createVerseList(tableList.get(i));
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
