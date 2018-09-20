@@ -65,12 +65,12 @@
             android:id="@+id/search_Button_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_coners"
             android:drawableLeft="@drawable/ic_search_black_24dp"
             android:padding="10dp"
             android:text="ත්‍රිපිටකය සෙවීම  "
             android:textColor="#744308"
-            android:textSize="18sp"
-            android:background="@drawable/round_coners"/>
+            android:textSize="18sp" />
 
 
         <ListView
@@ -89,10 +89,10 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
+            android:background="@drawable/round_coners"
             android:hint="Search Suthra"
             android:inputType="text"
-            android:padding="5dp"
-            android:background="@drawable/round_coners"/>
+            android:padding="5dp" />
 
         <TextView
             android:id="@+id/searchBar2"
@@ -101,14 +101,14 @@
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
             android:padding="5dp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
         <ListView
-            android:layout_gravity="top"
             android:id="@+id/listV"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_gravity="top"
             android:layout_margin="10dp" />
 
 
@@ -141,64 +141,59 @@
             android:id="@+id/searchBar3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/textView2"
+            android:background="@drawable/round_coners"
             android:hint="Search Dictionary..."
             android:inputType="text"
             android:padding="5dp"
-            android:background="@drawable/round_coners"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/searchBar4"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_below="@+id/textView2"
             android:padding="5dp"
-            android:textColor="#F7F9F9"
-            android:textStyle="bold"/>
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/language"
-            android:layout_width="wrap_content"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/colorBackNav"
             android:popupBackground="#00000000"
-            android:layout_below="@+id/textView2">
+            android:layout_margin="5dp"
+            android:textAlignment="center">
 
         </Spinner>
 
+        <Button
+            android:id="@+id/paaliBT"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/back_spinner"
+            android:text="සිංහල"
+            android:layout_margin="5dp"/>
 
-        <!--/>-->
-
-
-
-
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/paaliBT"
-                android:text="paali"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/sinhalaBT"
-                android:text="sinhala"/>
+        <Button
+            android:id="@+id/sinhalaBT"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/back_spinner"
+            android:text="පාලි"
+            android:layout_margin="5dp"/>
 
 
         <ListView
-            android:layout_gravity="top"
             android:id="@+id/listV2"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_margin="10dp"
+            android:layout_gravity="top"
+            android:layout_margin="5dp"
 
-            android:background="@color/colorBackNav"/>
-
-
+            android:background="@color/colorBackNav" />
 
 
     </LinearLayout>
