@@ -31,7 +31,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -209,8 +208,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
                     listDataHeader.clear();
+                    listDataItems.clear();
                     listData2Header.clear();
+                    listData2Items.clear();
                     listData3Header.clear();
+                    listData3Items.clear();
                     createVerseList(tableList.get(i));
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
@@ -557,7 +559,6 @@ public class MainActivity extends AppCompatActivity {
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
 
                             listDataHeader.clear();
                             listDataItems.clear();
@@ -673,7 +674,7 @@ public class MainActivity extends AppCompatActivity {
 
                 while (res.moveToNext()) {
                     if(!res.getString(0).contains("_")){
-                        String htmlColourStr="<font color=#FD7E7E>"+res.getString(0)+"</font> <font color=#3BFF00>"+"|ජාලසුත්|"+"</font>"+"<font color=#ffffff>"+res.getString(1)+"</font>";
+                        String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" + res.getString(1) + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
                         dataList.add(htmlColourStr);
                         meanList.add(res.getString(1));
                     }
@@ -684,8 +685,6 @@ public class MainActivity extends AppCompatActivity {
            // dataList.add("Dictionary Not Found!");
             Toast.makeText(this, "Dictionary Not Found", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     //suthra list
