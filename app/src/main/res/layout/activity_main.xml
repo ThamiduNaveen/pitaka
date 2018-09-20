@@ -192,6 +192,7 @@
             android:layout_gravity="center"
             android:layout_below="@+id/textView2"
             android:popupBackground="#FAAC58"
+            android:background=""
             >
 
         </Spinner>
