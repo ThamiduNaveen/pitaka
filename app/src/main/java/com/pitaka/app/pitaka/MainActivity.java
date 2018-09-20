@@ -569,7 +569,6 @@ public class MainActivity extends AppCompatActivity {
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
                     tv.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_format_align_justify_white_24dp, 0, 0, 0);
                     tv.setTextColor(Color.WHITE);
-
                 } else {
                     //tv.setTypeface(Typeface.DEFAULT_BOLD);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
