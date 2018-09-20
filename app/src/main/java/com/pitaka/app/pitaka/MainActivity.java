@@ -559,7 +559,6 @@ public class MainActivity extends AppCompatActivity {
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
 
                             listDataHeader.clear();
                             listDataItems.clear();
