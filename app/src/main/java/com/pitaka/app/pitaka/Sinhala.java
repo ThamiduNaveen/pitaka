@@ -15,14 +15,17 @@ import java.util.List;
 import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
 import static com.pitaka.app.pitaka.MainActivity.listDataItems;
-
+import static com.pitaka.app.pitaka.Paali.expPaliListView;
+import static com.pitaka.app.pitaka.Paali.expandPaliList;
+import static com.pitaka.app.pitaka.Sinhala2.sinhala2Collaps;
+import static com.pitaka.app.pitaka.Sinhala2.sinhala2Expand;
 
 
 public class Sinhala extends Fragment {
 
 
     ExpandableListAdapter listAdapter;
-    static ExpandableListView expListView;
+    public static ExpandableListView expListView;
     Button button;
     int previousItem = -1;
     public static int setPosition=0;
@@ -63,10 +66,12 @@ public class Sinhala extends Fragment {
 
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
-
             @Override
             public void onGroupExpand(int groupPosition) {
-//                expandPaliList(groupPosition);
+//                expPaliListView.expandGroup(groupPosition, true);
+                sinhala2Collaps(previousItem);
+                sinhala2Expand(groupPosition);
+
                 if(groupPosition != previousItem ) {
                     expListView.collapseGroup(previousItem);
                     previousItem = groupPosition;
@@ -82,6 +87,9 @@ public class Sinhala extends Fragment {
         if(isUpdated){
             expListView.expandGroup(position,true);
         }
+    }
+    public static void collapseList(int position){
+        expListView.collapseGroup(position);
     }
 
     public void prepareListData(){

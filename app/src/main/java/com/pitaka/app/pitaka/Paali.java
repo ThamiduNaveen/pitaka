@@ -17,14 +17,17 @@ import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listData2Header;
 import static com.pitaka.app.pitaka.MainActivity.listData2Items;
 
+import static com.pitaka.app.pitaka.Sinhala.collapseList;
 import static com.pitaka.app.pitaka.Sinhala.expandList;
 import static com.pitaka.app.pitaka.Sinhala.setPosition;
+import static com.pitaka.app.pitaka.Sinhala2.sinhala2Collaps;
+import static com.pitaka.app.pitaka.Sinhala2.sinhala2Expand;
 
 
 public class Paali extends Fragment {
 
     ExpandableListAdapter listAdapter;
-    static ExpandableListView expPaliListView;
+    public static ExpandableListView expPaliListView;
 
     HashMap<String, List<String>> listDataChild;
 
@@ -63,10 +66,15 @@ public class Paali extends Fragment {
 
             @Override
             public void onGroupExpand(int groupPosition) {
+                collapseList(previousItem);
+                sinhala2Collaps(previousItem);
                 expandList(groupPosition);
-                if(groupPosition != previousItem )
-                    expPaliListView.collapseGroup(previousItem );
-                previousItem = groupPosition;
+                sinhala2Expand(groupPosition);
+
+                if(groupPosition != previousItem ) {
+                    expPaliListView.collapseGroup(previousItem);
+                    previousItem = groupPosition;
+                }
 
             }
 
@@ -81,9 +89,9 @@ public class Paali extends Fragment {
     }
 
     public static void expandPaliList(int position) {
-        if(isUpdated){
-            expPaliListView.expandGroup(position,true);
-        }
+
+        expPaliListView.expandGroup(position,true);
+
     }
 
     public void prepareListData(){
