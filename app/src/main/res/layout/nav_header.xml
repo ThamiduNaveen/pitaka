@@ -24,7 +24,7 @@
       android:layout_weight="1"
       android:paddingLeft="15dp"
       android:paddingTop="10dp"
-      android:text="pitaka.lk"
+      android:text="kcthripitaka සංස්කරණය"
       android:textSize="18sp"
       android:textStyle="bold|italic" />
 

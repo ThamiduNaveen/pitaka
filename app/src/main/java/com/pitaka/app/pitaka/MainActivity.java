@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -73,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
     //dictionary setting
     List<String> dicList = new ArrayList<String>();
-    List<String> lanList = new ArrayList<String>();
     public int selection1=0;
     public int selection2=0;
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Navdrawer data
-    String jsonStringList = "[{\"title\":\"විනයපිටක\",\"children\":[]},{\"title\":\"සුත්තපිටක\",\"children\":[{\"title\":\"දීඝනිකාය\",\"children\":[{\"title\":\"සීලක්ඛන්ධවග්ගපාළි\",\"children\":[{\"title\":\"1. බ්‍රහ්මජාලසුත්තං\",\"children\":[]},{\"title\":\"2. සාමඤ්ඤඵලසුත්තං\",\"children\":[]},{\"title\":\"3. අම්බට්ඨසුත්තං\",\"children\":[]},{\"title\":\"4. සොණදණ්ඩසුත්තං\",\"children\":[]},{\"title\":\"5. කූටදන්තසුත්තං\",\"children\":[]},{\"title\":\"6. මහාලිසුත්තං\",\"children\":[]},{\"title\":\"7. ජාලියසුත්තං\",\"children\":[]},{\"title\":\"8. මහාසීහනාදසුත්තං\",\"children\":[]},{\"title\":\"9. පොට්ඨපාදසුත්තං\",\"children\":[]},{\"title\":\"10. සුභසුත්තං\",\"children\":[]},{\"title\":\"11. කෙවට්ටසුත්තං\",\"children\":[]},{\"title\":\"12. ලොහිච්චසුත්තං\",\"children\":[]},{\"title\":\"13. තෙවිජ්ජසුත්තං\",\"children\":[]}]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[{\"title\":\"1. මහාපදානසුත්තං\",\"children\":[]},{\"title\":\"2. මහානිදානසුත්තං\",\"children\":[]},{\"title\":\"3. මහාපරිනිබ්බානසුත්තං\",\"children\":[]},{\"title\":\"4. මහාසුදස්සනසුත්තං\",\"children\":[]},{\"title\":\"5. ජනවසභසුත්තං\",\"children\":[]},{\"title\":\"6. මහාගොවින්දසුත්තං\",\"children\":[]},{\"title\":\"7. මහාසමයසුත්තං\",\"children\":[]},{\"title\":\"8. සක්කපඤ්හසුත්තං\",\"children\":[]},{\"title\":\"9. මහාසතිපට්ඨානසුත්තං\",\"children\":[]},{\"title\":\"10. පායාසිසුත්තං\",\"children\":[]}]},{\"title\":\"පාථිකවග්ගපාළි\",\"children\":[{\"title\":\"1. පාථිකසුත්තං\",\"children\":[]},{\"title\":\"2. උදුම්බරිකසුත්තං\",\"children\":[]},{\"title\":\"3. චක්කවත්තිසුත්තං\",\"children\":[]},{\"title\":\"4. අග්ගඤ්ඤසුත්තං\",\"children\":[]},{\"title\":\"5. සම්පසාදනීයසුත්තං\",\"children\":[]},{\"title\":\"6. පාසාදිකසුත්තං\",\"children\":[]},{\"title\":\"7. ලක්ඛණසුත්තං\",\"children\":[]},{\"title\":\"8. සිඞ්ගාලසුත්තං\",\"children\":[]},{\"title\":\"9. ආටානාටියසුත්තං\",\"children\":[]},{\"title\":\"10. සඞ්ගීතිසුත්තං\",\"children\":[]},{\"title\":\"11. දසුත්තරසුත්තං\",\"children\":[]}]}]},{\"title\":\"මජ්ඣිමනිකාය\",\"children\":[{\"title\":\"මූලපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. මූලපරියායවග්ගො\",\"children\":[]},{\"title\":\"2. සීහනාදවග්ගො\",\"children\":[]},{\"title\":\"3. ඔපම්මවග්ගො\",\"children\":[]},{\"title\":\"4. මහායමකවග්ගො\",\"children\":[]},{\"title\":\"5. චූළයමකවග්ගො\",\"children\":[]}]},{\"title\":\"මජ්ඣිමපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. ගහපතිවග්ගො\",\"children\":[]},{\"title\":\"2. භික්ඛුවග්ගො\",\"children\":[]},{\"title\":\"3. පරිබ්බාජකවග්ගො\",\"children\":[]},{\"title\":\"4. රාජවග්ගො\",\"children\":[]},{\"title\":\"5. බ්‍රාහ්මණවග්ගො\",\"children\":[]}]},{\"title\":\"උපරිපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. දෙවදහවග්ගො\",\"children\":[]},{\"title\":\"2. අනුපදවග්ගො\",\"children\":[]},{\"title\":\"3. සුඤ්ඤතවග්ගො\",\"children\":[]},{\"title\":\"4. විභඞ්ගවග්ගො\",\"children\":[]},{\"title\":\"5. සළායතනවග්ගො\",\"children\":[]}]}]},{\"title\":\"සංයුත්තනිකාය\",\"children\":[{\"title\":\"සගාථාවග්ගපාළි\",\"children\":[]},{\"title\":\"නිදානවග්ගපාළි\",\"children\":[]},{\"title\":\"ඛන්ධවග්ගපාළි\",\"children\":[]},{\"title\":\"සළායතනවග්ගපාළි\",\"children\":[]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[]}]},{\"title\":\"අඞ්ගුත්තරනිකාය\",\"children\":[{\"title\":\"එකකනිපාතපාළි\",\"children\":[]},{\"title\":\"දුකනිපාතපාළි\",\"children\":[]},{\"title\":\"තිකනිපාතපාළි\",\"children\":[]},{\"title\":\"චතුක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"පඤ්චකනිපාතපාළි\",\"children\":[]},{\"title\":\"ඡක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"සත්තකනිපාතපාළි\",\"children\":[]},{\"title\":\"අට්ඨකාදිනිපාතපාළි\",\"children\":[]},{\"title\":\"නවකනිපාතපාළි\",\"children\":[]},{\"title\":\"දසකනිපාතපාළි\",\"children\":[]},{\"title\":\"එකාදසකනිපාතපාළි\",\"children\":[]}]},{\"title\":\"ඛුද්දකනිකාය\",\"children\":[{\"title\":\"ඛුද්දකපාඨපාළි\",\"children\":[]},{\"title\":\"ධම්මපදපාළි\",\"children\":[]},{\"title\":\"උදානපාළි\",\"children\":[]},{\"title\":\"ඉතිවුත්තකපාළි\",\"children\":[]},{\"title\":\"සුත්තනිපාතපාළි\",\"children\":[]},{\"title\":\"විමානවත්ථුපාළි\",\"children\":[]},{\"title\":\"පෙතවත්ථුපාළි\",\"children\":[]},{\"title\":\"ථෙරගාථාපාළි\",\"children\":[]},{\"title\":\"ථෙරීගාථාපාළි\",\"children\":[]},{\"title\":\"අපදානපාළි-1\",\"children\":[]},{\"title\":\"අපදානපාළි-2\",\"children\":[]},{\"title\":\"බුද්ධවංසපාළි\",\"children\":[]},{\"title\":\"චරියාපිටකපාළි\",\"children\":[]},{\"title\":\"ජාතකපාළි-1\",\"children\":[]},{\"title\":\"ජාතකපාළි-2\",\"children\":[]},{\"title\":\"මහානිද්දෙසපාළි\",\"children\":[]},{\"title\":\"චූළනිද්දෙසපාළි\",\"children\":[]},{\"title\":\"පටිසම්භිදාමග්ගපාළි\",\"children\":[]},{\"title\":\"නෙත්තිප්පකරණපාළි\",\"children\":[]},{\"title\":\"මිලින්දපඤ්හපාළි\",\"children\":[]},{\"title\":\"පෙටකොපදෙසපාළි\",\"children\":[]}]}]},{\"title\":\"අභිධම්මපිටක\",\"children\":[]}]";
+    String jsonStringList = "[{\"title\":\"විනයපිටක\",\"children\":[]},{\"title\":\"සුත්තපිටක\",\"children\":[{\"title\":\"දීඝනිකාය\",\"children\":[{\"title\":\"සීලක්ඛන්ධවග්ගපාළි\",\"children\":[{\"title\":\"බ්\u200Dරහ්මජාලසුත්තං\",\"children\":[]},{\"title\":\"සාමඤ්ඤඵලසුත්තං\",\"children\":[]},{\"title\":\"අම්බට්ඨසුත්තං\",\"children\":[]},{\"title\":\"සොණදණ්ඩසුත්තං\",\"children\":[]},{\"title\":\"කූටදන්තසුත්තං\",\"children\":[]},{\"title\":\"මහාලිසුත්තං\",\"children\":[]},{\"title\":\"ජාලියසුත්තං\",\"children\":[]},{\"title\":\"මහාසීහනාදසුත්තං\",\"children\":[]},{\"title\":\"පොට්ඨපාදසුත්තං\",\"children\":[]},{\"title\":\"සුභසුත්තං\",\"children\":[]},{\"title\":\"කෙවට්ටසුත්තං\",\"children\":[]},{\"title\":\"ලොහිච්චසුත්තං\",\"children\":[]},{\"title\":\"තෙවිජ්ජසුත්තං\",\"children\":[]}]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[{\"title\":\"මහාපදානසුත්තං\",\"children\":[]},{\"title\":\"මහානිදානසුත්තං\",\"children\":[]},{\"title\":\"මහාපරිනිබ්බානසුත්තං\",\"children\":[]},{\"title\":\"මහාසුදස්සනසුත්තං\",\"children\":[]},{\"title\":\"ජනවසභසුත්තං\",\"children\":[]},{\"title\":\"මහාගොවින්දසුත්තං\",\"children\":[]},{\"title\":\"මහාසමයසුත්තං\",\"children\":[]},{\"title\":\"සක්කපඤ්හසුත්තං\",\"children\":[]},{\"title\":\"මහාසතිපට්ඨානසුත්තං\",\"children\":[]},{\"title\":\"පායාසිසුත්තං\",\"children\":[]}]},{\"title\":\"පාථිකවග්ගපාළි\",\"children\":[{\"title\":\"1. පාථිකසුත්තං\",\"children\":[]},{\"title\":\"2. උදුම්බරිකසුත්තං\",\"children\":[]},{\"title\":\"3. චක්කවත්තිසුත්තං\",\"children\":[]},{\"title\":\"4. අග්ගඤ්ඤසුත්තං\",\"children\":[]},{\"title\":\"5. සම්පසාදනීයසුත්තං\",\"children\":[]},{\"title\":\"6. පාසාදිකසුත්තං\",\"children\":[]},{\"title\":\"7. ලක්ඛණසුත්තං\",\"children\":[]},{\"title\":\"8. සිඞ්ගාලසුත්තං\",\"children\":[]},{\"title\":\"9. ආටානාටියසුත්තං\",\"children\":[]},{\"title\":\"10. සඞ්ගීතිසුත්තං\",\"children\":[]},{\"title\":\"11. දසුත්තරසුත්තං\",\"children\":[]}]}]},{\"title\":\"මජ්ඣිමනිකාය\",\"children\":[{\"title\":\"මූලපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. මූලපරියායවග්ගො\",\"children\":[]},{\"title\":\"2. සීහනාදවග්ගො\",\"children\":[]},{\"title\":\"3. ඔපම්මවග්ගො\",\"children\":[]},{\"title\":\"4. මහායමකවග්ගො\",\"children\":[]},{\"title\":\"5. චූළයමකවග්ගො\",\"children\":[]}]},{\"title\":\"මජ්ඣිමපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. ගහපතිවග්ගො\",\"children\":[]},{\"title\":\"2. භික්ඛුවග්ගො\",\"children\":[]},{\"title\":\"3. පරිබ්බාජකවග්ගො\",\"children\":[]},{\"title\":\"4. රාජවග්ගො\",\"children\":[]},{\"title\":\"5. බ්‍රාහ්මණවග්ගො\",\"children\":[]}]},{\"title\":\"උපරිපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. දෙවදහවග්ගො\",\"children\":[]},{\"title\":\"2. අනුපදවග්ගො\",\"children\":[]},{\"title\":\"3. සුඤ්ඤතවග්ගො\",\"children\":[]},{\"title\":\"4. විභඞ්ගවග්ගො\",\"children\":[]},{\"title\":\"5. සළායතනවග්ගො\",\"children\":[]}]}]},{\"title\":\"සංයුත්තනිකාය\",\"children\":[{\"title\":\"සගාථාවග්ගපාළි\",\"children\":[]},{\"title\":\"නිදානවග්ගපාළි\",\"children\":[]},{\"title\":\"ඛන්ධවග්ගපාළි\",\"children\":[]},{\"title\":\"සළායතනවග්ගපාළි\",\"children\":[]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[]}]},{\"title\":\"අඞ්ගුත්තරනිකාය\",\"children\":[{\"title\":\"එකකනිපාතපාළි\",\"children\":[]},{\"title\":\"දුකනිපාතපාළි\",\"children\":[]},{\"title\":\"තිකනිපාතපාළි\",\"children\":[]},{\"title\":\"චතුක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"පඤ්චකනිපාතපාළි\",\"children\":[]},{\"title\":\"ඡක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"සත්තකනිපාතපාළි\",\"children\":[]},{\"title\":\"අට්ඨකාදිනිපාතපාළි\",\"children\":[]},{\"title\":\"නවකනිපාතපාළි\",\"children\":[]},{\"title\":\"දසකනිපාතපාළි\",\"children\":[]},{\"title\":\"එකාදසකනිපාතපාළි\",\"children\":[]}]},{\"title\":\"ඛුද්දකනිකාය\",\"children\":[{\"title\":\"ඛුද්දකපාඨපාළි\",\"children\":[]},{\"title\":\"ධම්මපදපාළි\",\"children\":[]},{\"title\":\"උදානපාළි\",\"children\":[]},{\"title\":\"ඉතිවුත්තකපාළි\",\"children\":[]},{\"title\":\"සුත්තනිපාතපාළි\",\"children\":[]},{\"title\":\"විමානවත්ථුපාළි\",\"children\":[]},{\"title\":\"පෙතවත්ථුපාළි\",\"children\":[]},{\"title\":\"ථෙරගාථාපාළි\",\"children\":[]},{\"title\":\"ථෙරීගාථාපාළි\",\"children\":[]},{\"title\":\"අපදානපාළි-1\",\"children\":[]},{\"title\":\"අපදානපාළි-2\",\"children\":[]},{\"title\":\"බුද්ධවංසපාළි\",\"children\":[]},{\"title\":\"චරියාපිටකපාළි\",\"children\":[]},{\"title\":\"ජාතකපාළි-1\",\"children\":[]},{\"title\":\"ජාතකපාළි-2\",\"children\":[]},{\"title\":\"මහානිද්දෙසපාළි\",\"children\":[]},{\"title\":\"චූළනිද්දෙසපාළි\",\"children\":[]},{\"title\":\"පටිසම්භිදාමග්ගපාළි\",\"children\":[]},{\"title\":\"නෙත්තිප්පකරණපාළි\",\"children\":[]},{\"title\":\"මිලින්දපඤ්හපාළි\",\"children\":[]},{\"title\":\"පෙටකොපදෙසපාළි\",\"children\":[]}]}]},{\"title\":\"අභිධම්මපිටක\",\"children\":[]}]";
 
 
 
@@ -156,10 +157,12 @@ public class MainActivity extends AppCompatActivity {
 
         //tab initializing
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Sinhala1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Paali"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sinhala2"));
+        tabLayout.addTab(tabLayout.newTab().setText("සිංහල 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("පාලි"));
+        tabLayout.addTab(tabLayout.newTab().setText("සිංහල 2"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        tab.select();
 
         viewPager = findViewById(R.id.pager);
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -171,11 +174,58 @@ public class MainActivity extends AppCompatActivity {
         final ListView listV2=findViewById(R.id.listV2);
 
         //search
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList);
+        final LayoutInflater mInflater2 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View row;
+
+                if (null == convertView) {
+                    row = mInflater2.inflate(R.layout.support_simple_spinner_dropdown_item, null);
+                } else {
+                    row = convertView;
+                }
+
+                TextView tv = (TextView) row.findViewById(android.R.id.text1);
+                tv.setSingleLine(false);
+                tv.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                tv.setBackgroundResource(R.drawable.back);
+                tv.setTextColor(Color.WHITE);
+                tv.setPadding(25,25,25,25);
+                tv.setText(getItem(position));
+
+                return row;
+            }
+        };
         listV.setAdapter(adapter);
 
         //dictionary
-        final ArrayAdapter<String> adapterr=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,dataList);
+        final LayoutInflater mInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        final ArrayAdapter<String> adapterr = new ArrayAdapter<String>(this, R.layout.dictionary_item, dataList) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View row;
+
+                if (null == convertView) {
+                    row = mInflater.inflate(R.layout.support_simple_spinner_dropdown_item, null);
+                } else {
+                    row = convertView;
+                }
+
+                TextView tv = (TextView) row.findViewById(android.R.id.text1);
+                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_circle_white_24dp, 0, 0, 0);
+                tv.setSingleLine(false);
+                tv.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+                tv.setBackgroundResource(R.drawable.back);
+                tv.setPadding(25,25,25,25);
+                tv.setText(Html.fromHtml(getItem(position)));
+                //tv.setText(getItem(position));
+
+                return row;
+            }
+        };
         listV2.setAdapter(adapterr);
 
         listV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -183,8 +233,11 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 try {
                     listDataHeader.clear();
+                    listDataItems.clear();
                     listData2Header.clear();
+                    listData2Items.clear();
                     listData3Header.clear();
+                    listData3Items.clear();
                     createVerseList(tableList.get(i));
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
@@ -222,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Pitaka.lk");
+        getSupportActionBar().setTitle("kcthripitaka");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -324,45 +377,53 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Spinner lanuage = findViewById(R.id.language);//conversion type selection
-        final Spinner dictionary = findViewById(R.id.dictionary);//dictionary selection
 
-        dicList.add("Dictionary 1");
-        dicList.add("Dictionary 2");
-        dicList.add("Dictionary 3");
+//        Spinner spinner = (Spinner) findViewById(R.id.pioedittxt5);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.travelreasons, R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
 
-        lanList.add("Sinhala to Paali");
-        lanList.add("Paali to Sinhala");
-
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, dicList);
+        dicList.add("ශබ්ද කෝෂය 1");
+        dicList.add("ශබ්ද කෝෂය 2");
+        dicList.add("ශබ්ද කෝෂය 3");
 
 
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lanList);
+        final Button paaliBT = (Button) findViewById(R.id.paaliBT);
+        final Button sinhalaBT = (Button) findViewById(R.id.sinhalaBT);
+        paaliBT.setVisibility(View.GONE);
 
-        lanuage.setAdapter(adapter2);
-        dictionary.setAdapter(adapter3);
-
-        dictionary.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        paaliBT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){
-                    selection1=0;
-                }
-                else if(i==1){
-                    selection1=1;
-                }
-
+            public void onClick(View view) {
+                paaliBT.setVisibility(View.GONE);
+                sinhalaBT.setVisibility(View.VISIBLE);
+                selection1=0;
                 searching();
                 adapterr.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
+        sinhalaBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sinhalaBT.setVisibility(View.GONE);
+                paaliBT.setVisibility(View.VISIBLE);
+                selection1=1;
+                searching();
+                adapterr.notifyDataSetChanged();
+            }
+        });
+
+
+
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                R.layout.simple_spinner, dicList);
+
+
+        lanuage.setAdapter(adapter2);
 
         lanuage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -414,18 +475,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
+   //     final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
         //Dictionary-get meaning
         listV2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                try{
-                    t.setText(dataList.get(i)+"-"+meanList.get(i));
-                    t.show();
-                }
-                catch (Exception e){
-                }
+//                try{
+//                    t.setText(dataList.get(i)+"-"+meanList.get(i));
+//                    t.show();
+//                }
+//                catch (Exception e){
+//                }
 
             }
         });
@@ -506,8 +567,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (level == 3) {
                     tv.setTypeface(null, Typeface.ITALIC);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
+                    tv.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_format_align_justify_white_24dp, 0, 0, 0);
                     tv.setTextColor(Color.WHITE);
-
                 } else {
                     //tv.setTypeface(Typeface.DEFAULT_BOLD);
                     //tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
@@ -523,7 +584,6 @@ public class MainActivity extends AppCompatActivity {
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            //Toast.makeText(MainActivity.this, "Clicked on: "+Title, Toast.LENGTH_SHORT).show();
 
                             listDataHeader.clear();
                             listDataItems.clear();
@@ -532,7 +592,8 @@ public class MainActivity extends AppCompatActivity {
                             listData3Header.clear();
                             listData3Items.clear();
                             try {
-                                createVerseList(Title);
+                                createVerseList(Title.toString());
+                                //Toast.makeText(MainActivity.this, Title, Toast.LENGTH_SHORT).show();
                                 isUpdated = true;
                                 viewPager.getAdapter().notifyDataSetChanged();
                                 drawer.closeDrawer(GravityCompat.START);
@@ -638,17 +699,17 @@ public class MainActivity extends AppCompatActivity {
 
                 while (res.moveToNext()) {
                     if(!res.getString(0).contains("_")){
-                        dataList.add(res.getString(0));
+                        String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" + res.getString(1) + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
+                        dataList.add(htmlColourStr);
                         meanList.add(res.getString(1));
                     }
                 }
             }
         }
         catch (Exception e){
-            dataList.add("Dictionary Not Found!");
+           // dataList.add("Dictionary Not Found!");
+            Toast.makeText(this, "Dictionary Not Found", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     //suthra list
