@@ -119,7 +119,7 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
         return result;
     }
 
-    public Cursor searchContentSinhala(String searchText,String tables){
+    public Cursor searchContentSinhala(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
         //select * from බ්‍රහ්මජාලසුත්තං union select * from කූටදන්තසුත්තං
         Cursor result=sqLiteDatabase.rawQuery("select * from බ්\u200Dරහ්මජාලසුත්තං where Sinhala like '%"+searchText+"%'",null);

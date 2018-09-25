@@ -60,7 +60,7 @@ public class ContentSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchContent(searchT.getText().toString(),tableString);
+                searchContent(searchT.getText().toString());
 
             }
 
@@ -73,9 +73,9 @@ public class ContentSearch extends AppCompatActivity {
 
     }
 
-    public void searchContent(String text,String tables) {
+    public void searchContent(String text) {
 
-        Cursor res = mDBHelper3.searchContentSinhala(text,tables);
+        Cursor res = mDBHelper3.searchContentSinhala(text);
 
         if (res.getCount() == 0) {
             //no data
