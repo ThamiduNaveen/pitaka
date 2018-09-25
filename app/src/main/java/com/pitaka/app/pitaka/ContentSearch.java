@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -23,12 +24,15 @@ public class ContentSearch extends AppCompatActivity {
 
     private DatabaseHelper2 mDBHelper3;
     private SQLiteDatabase mDb3;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_search);
         Toolbar toolbar=findViewById(R.id.toolbar);
+
+        tv=findViewById(R.id.search);
 
         final EditText searchT=findViewById(R.id.text_search);
 
@@ -80,18 +84,8 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                if(!res.getString(0).contains("_")){
-                    //tableList2.add(res.getString(0));
-                    //tableString=tableString+" union "+res.getString(0);
-                    Toast.makeText(this, res.getString(2), Toast.LENGTH_SHORT).show();
-                }
+                    tv.setText(res.getString(2));
             }
         }
     }
-
-
-
-
-
-
 }
