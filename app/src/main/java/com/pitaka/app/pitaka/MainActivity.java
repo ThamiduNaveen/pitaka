@@ -1,6 +1,7 @@
 package com.pitaka.app.pitaka;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase mDb,mDb2;
 
     private static final int WRITE_EXTERNAL_STO_CODE = 1;
+
+    public static String tableString="";
 
     public static Boolean isUpdated=false;
     //data lists for Sinhala1 fragment
@@ -175,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
         //search
         final LayoutInflater mInflater2 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList) {
+        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent)
             {
@@ -238,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                     listData2Items.clear();
                     listData3Header.clear();
                     listData3Items.clear();
+                    getSupportActionBar().setTitle(tableList.get(i));
                     createVerseList(tableList.get(i));
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
@@ -362,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                             tableList.add(tableList2.get(j));
                         }
                     }
-
+                    adapter.notifyDataSetChanged();
 
 
 
@@ -377,12 +381,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         final Spinner lanuage = findViewById(R.id.language);//conversion type selection
-
-//        Spinner spinner = (Spinner) findViewById(R.id.pioedittxt5);
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                R.array.travelreasons, R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
 
         dicList.add("ශබ්ද කෝෂය 1");
         dicList.add("ශබ්ද කෝෂය 2");
@@ -449,7 +447,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        searching();
+        //searching();
         //dictionary searching
         searchBar3.addTextChangedListener(new TextWatcher() {
             @Override
@@ -475,21 +473,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-   //     final Toast t=Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT);
-        //Dictionary-get meaning
-        listV2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-//                try{
-//                    t.setText(dataList.get(i)+"-"+meanList.get(i));
-//                    t.show();
-//                }
-//                catch (Exception e){
-//                }
-
-            }
-        });
 
         /////////
 
@@ -592,6 +576,7 @@ public class MainActivity extends AppCompatActivity {
                             listData3Header.clear();
                             listData3Items.clear();
                             try {
+                                getSupportActionBar().setTitle(Title);
                                 createVerseList(Title.toString());
                                 //Toast.makeText(MainActivity.this, Title, Toast.LENGTH_SHORT).show();
                                 isUpdated = true;
@@ -655,10 +640,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_main:
-
-
                 drawer.openDrawer(mRightDrawerView);
                 return true;
+
+            case R.id.search_content:
+                Intent contentSearchActivity= new Intent(MainActivity.this,ContentSearch.class);
+                startActivity(contentSearchActivity);
+
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -699,7 +688,7 @@ public class MainActivity extends AppCompatActivity {
 
                 while (res.moveToNext()) {
                     if(!res.getString(0).contains("_")){
-                        String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" + res.getString(1) + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
+                        String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" +" | "+ res.getString(1)+" | " + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
                         dataList.add(htmlColourStr);
                         meanList.add(res.getString(1));
                     }
@@ -726,6 +715,7 @@ public class MainActivity extends AppCompatActivity {
             while (res.moveToNext()) {
                 if(!res.getString(0).contains("_")){
                     tableList2.add(res.getString(0));
+                    tableString=tableString+" union "+res.getString(0);
                 }
             }
         }

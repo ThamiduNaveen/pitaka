@@ -119,4 +119,19 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor searchContentSinhala(String searchText,String tables){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        //select * from බ්‍රහ්මජාලසුත්තං union select * from කූටදන්තසුත්තං
+        Cursor result=sqLiteDatabase.rawQuery("select * from බ්\u200Dරහ්මජාලසුත්තං where Sinhala like '%"+searchText+"%'",null);
+        return result;
+
+    }
+
+    public Cursor searchContentPaali(String searchText){
+        SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
+        Cursor result=sqLiteDatabase.rawQuery("select * from tableString where Paali like '%"+searchText+"%'",null);
+        return result;
+
+    }
+
 }
