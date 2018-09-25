@@ -3,12 +3,12 @@ package com.pitaka.app.pitaka;
 public class SinglishTranslator {
      private String text="\\a api meika atahadaa bAleemaki";
      int nVowels;
-     String[]consonants= new String[46];
-     String[]consonantsUni= new String[46];
+     String[]consonants= new String[47];
+     String[]consonantsUni= new String[47];
 
-     String[] vowels= new String[26];
-     String[] vowelsUni= new String[26];
-     String[] vowelModifiersUni= new String[26];
+     String[] vowels= new String[29];
+     String[] vowelsUni= new String[29];
+     String[] vowelModifiersUni= new String[29];
 
     String[] specialConsonants= new String[6 ];
     String[]  specialConsonantsUni= new String[6];
@@ -18,7 +18,7 @@ public class SinglishTranslator {
 
     private void initializeVar(){
 
-        vowelsUni[0]="ඌ"; vowels[0]="oo"; vowelModifiersUni[0]="ූ";
+        vowelsUni[0]="ඕ"; vowels[0]="oo"; vowelModifiersUni[0]="ෝ";//ූ
         vowelsUni[1]="ඕ"; vowels[1]="o\\)"; vowelModifiersUni[1]="ෝ";
         vowelsUni[2]="ඕ"; vowels[2]="oe"; vowelModifiersUni[2]="ෝ";
         vowelsUni[3]="ආ"; vowels[3]="aa"; vowelModifiersUni[3]="ා";
@@ -29,53 +29,60 @@ public class SinglishTranslator {
         vowelsUni[8]="ඊ"; vowels[8]="ii"; vowelModifiersUni[8]="ී";
         vowelsUni[9]="ඊ"; vowels[9]="i\\)"; vowelModifiersUni[9]="ී";
         vowelsUni[10]="ඊ"; vowels[10]="ie"; vowelModifiersUni[10]="ී";
-        vowelsUni[11]="ඊ"; vowels[11]="ee"; vowelModifiersUni[11]="ී";
-        vowelsUni[12]="ඒ"; vowels[12]="ea"; vowelModifiersUni[12]="ේ";
+        vowelsUni[11]="ඒ"; vowels[11]="ee"; vowelModifiersUni[11]="ේ";//ී
+        vowelsUni[12]="ඒ"; vowels[12]="ea"; vowelModifiersUni[12]="ේ";//ේ
         vowelsUni[13]="ඒ"; vowels[13]="e\\)"; vowelModifiersUni[13]="ේ";
         vowelsUni[14]="ඒ"; vowels[14]="ei"; vowelModifiersUni[14]="ේ";
         vowelsUni[15]="ඌ"; vowels[15]="uu"; vowelModifiersUni[15]="ූ";
         vowelsUni[16]="ඌ"; vowels[16]="u\\)"; vowelModifiersUni[16]="ූ";
         vowelsUni[17]="ඖ"; vowels[17]="au"; vowelModifiersUni[17]="ෞ";
         vowelsUni[18]="ඇ"; vowels[18]="\\a"; vowelModifiersUni[18]="ැ";//check the middle one /\a changed to \\a
-        vowelsUni[19]="අ"; vowels[19]="a"; vowelModifiersUni[19]="";
-        vowelsUni[20]="ඇ"; vowels[20]="A"; vowelModifiersUni[20]="ැ";
-        vowelsUni[21]="ඉ"; vowels[21]="i"; vowelModifiersUni[21]="ි";
+        //vowelsUni[19]="අ"; vowels[19]="a"; vowelModifiersUni[19]="";
+        vowelsUni[19]="ඓ"; vowels[19]="ai"; vowelModifiersUni[19]="ෛ";
+        vowelsUni[20]="අඃ"; vowels[20]="aH"; vowelModifiersUni[20]="ඃ";
+        vowelsUni[21]="අං"; vowels[21]="ax"; vowelModifiersUni[21]="ං";
         vowelsUni[22]="එ"; vowels[22]="e"; vowelModifiersUni[22]="ෙ";
         vowelsUni[23]="උ"; vowels[23]="u"; vowelModifiersUni[23]="ු";
         vowelsUni[24]="ඔ"; vowels[24]="o"; vowelModifiersUni[24]="ො";
-        vowelsUni[25]="ඓ"; vowels[25]="I"; vowelModifiersUni[25]="ෛ";
-        nVowels=26;
+        //vowelsUni[25]="ඓ"; vowels[25]="ai"; vowelModifiersUni[25]="ෛ";//I
+        vowelsUni[25]="අ"; vowels[25]="a"; vowelModifiersUni[25]="";//I
+        vowelsUni[26]="ඇ"; vowels[26]="A"; vowelModifiersUni[26]="ැ";
+        vowelsUni[27]="ඉ"; vowels[27]="i"; vowelModifiersUni[27]="ි";
+        //todo down
+        vowelsUni[28]="ය"; vowels[28]="ya"; vowelModifiersUni[28]="‍ය";
+
+        nVowels=29;
         specialConsonantsUni[0]="ං"; specialConsonants[0]="\\n";
         specialConsonantsUni[1]="ඃ"; specialConsonants[1]="\\h";
         specialConsonantsUni[2]="ඞ"; specialConsonants[2]="\\N";
         specialConsonantsUni[3]="ඍ"; specialConsonants[3]="\\R";
 //special characher Repaya
-        specialConsonantsUni[4]="ර්"+"\u200D"; specialConsonants[4]="R";
+        specialConsonantsUni[4]="ඍ"; specialConsonants[4]="R";
         specialConsonantsUni[5]="ර්"+"\u200D"; specialConsonants[5]="\\r";
-        consonantsUni[0]="ඬ"; consonants[0]="nnd";
-        consonantsUni[1]="ඳ"; consonants[1]="nndh";
-        consonantsUni[2]="ඟ"; consonants[2]="nng";
-        consonantsUni[3]="ථ"; consonants[3]="th";
-        consonantsUni[4]="ධ"; consonants[4]="dh";
+        consonantsUni[1]="ඬ"; consonants[1]="zd";
+        consonantsUni[0]="ඳ"; consonants[0]="zdh";
+        consonantsUni[2]="ඟ"; consonants[2]="zg";
+        consonantsUni[3]="ථ"; consonants[3]="thh";
+        consonantsUni[4]="ධ"; consonants[4]="dhh";
         consonantsUni[5]="ඝ"; consonants[5]="gh";
-        consonantsUni[6]="ඡ"; consonants[6]="ch";
+        consonantsUni[6]="ඡ"; consonants[6]="chh";
         consonantsUni[7]="ඵ"; consonants[7]="ph";
         consonantsUni[8]="භ"; consonants[8]="bh";
-        consonantsUni[9]="ඣ"; consonants[9]="jh";
+        consonantsUni[9]="ඣ"; consonants[9]="J";
         consonantsUni[10]="ෂ"; consonants[10]="sh";
-        consonantsUni[11]="ඥ"; consonants[11]="GN";
-        consonantsUni[12]="ඤ"; consonants[12]="KN";
+        consonantsUni[11]="ඥ"; consonants[11]="zh";
+        consonantsUni[12]="ඤ"; consonants[12]="zk";
         consonantsUni[13]="ළු"; consonants[13]="Lu";
         consonantsUni[14]="ඛ"; consonants[14]="kh";
-        consonantsUni[15]="ඨ"; consonants[15]="Th";
-        consonantsUni[16]="ඪ"; consonants[16]="Dh";
+        consonantsUni[15]="ඨ"; consonants[15]="T";
+        consonantsUni[16]="ඪ"; consonants[16]="D";
         consonantsUni[17]="ශ"; consonants[17]="S";
-        consonantsUni[18]="ද"; consonants[18]="d";
-        consonantsUni[19]="ච"; consonants[19]="c";
-        consonantsUni[20]="ත"; consonants[20]="t";
-        consonantsUni[21]="ට"; consonants[21]="T";
+        consonantsUni[18]="ද"; consonants[18]="dh";
+        consonantsUni[19]="ච"; consonants[19]="ch";
+        consonantsUni[20]="ත"; consonants[20]="th";
+        consonantsUni[21]="ට"; consonants[21]="t";
         consonantsUni[22]="ක"; consonants[22]="k";
-        consonantsUni[23]="ඩ"; consonants[23]="D";
+        consonantsUni[23]="ඩ"; consonants[23]="d";
         consonantsUni[24]="න"; consonants[24]="n";
         consonantsUni[25]="ප"; consonants[25]="p";
         consonantsUni[26]="බ"; consonants[26]="b";
@@ -99,6 +106,8 @@ public class SinglishTranslator {
         consonantsUni[44]="ග"; consonants[44]="g";
 //last because we need to ommit this in dealing with Rakaransha
         consonantsUni[45]="ර"; consonants[45]="r";
+       //todo down
+        consonantsUni[46]="ඞ"; consonants[46]="aX";
         specialCharUni[0]="ෲ"; specialChar[0]="ruu";
         specialCharUni[1]="ෘ"; specialChar[1]="ru";
 //specialCharUni[2]="්‍ර"; specialChar[2]="ra";
