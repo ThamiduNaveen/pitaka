@@ -129,7 +129,7 @@ public class DatabaseHelper2 extends SQLiteOpenHelper {
 
     public Cursor searchContentPaali(String searchText){
         SQLiteDatabase sqLiteDatabase=this.getReadableDatabase();
-        Cursor result=sqLiteDatabase.rawQuery("select * from tableString where Paali like '%"+searchText+"%'",null);
+        Cursor result=sqLiteDatabase.rawQuery("select * from බ්\u200Dරහ්මජාලසුත්තං where Paali like '%"+searchText+"%'",null);
         return result;
 
     }

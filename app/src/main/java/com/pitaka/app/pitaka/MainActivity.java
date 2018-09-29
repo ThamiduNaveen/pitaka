@@ -435,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(i==2){
                     selection1=2;
                 }
-                searching();
+                //searching();
                 adapterr.notifyDataSetChanged();
 
             }
@@ -661,36 +661,33 @@ public class MainActivity extends AppCompatActivity {
         meanList.clear();
         Cursor res;
         try{
-            if(selection1==0&&selection2==0){
-                res = mDBHelper.searchDictionary1(searchBar4.getText().toString());
-            }
-            else if(selection1==1&&selection2==0){
-                res = mDBHelper.searchDictionary2(searchBar4.getText().toString());
-            }
-            else if(selection1==0&&selection2==1){
-                res = mDBHelper.searchDictionary3(searchBar4.getText().toString());
-            }
-            else if(selection1==1&&selection2==1){
-                res = mDBHelper.searchDictionary4(searchBar4.getText().toString());
-            }
-            else if(selection1==0&&selection2==2){
-                res = mDBHelper.searchDictionary5(searchBar4.getText().toString());
-            }
-            else{
-                res = mDBHelper.searchDictionary6(searchBar4.getText().toString());
-            }
+            if(!searchBar4.getText().toString().equals("")) {
+                if (selection1 == 0 && selection2 == 0) {
+                    res = mDBHelper.searchDictionary1(searchBar4.getText().toString());
+                } else if (selection1 == 1 && selection2 == 0) {
+                    res = mDBHelper.searchDictionary2(searchBar4.getText().toString());
+                } else if (selection1 == 0 && selection2 == 1) {
+                    res = mDBHelper.searchDictionary3(searchBar4.getText().toString());
+                } else if (selection1 == 1 && selection2 == 1) {
+                    res = mDBHelper.searchDictionary4(searchBar4.getText().toString());
+                } else if (selection1 == 0 && selection2 == 2) {
+                    res = mDBHelper.searchDictionary5(searchBar4.getText().toString());
+                } else {
+                    res = mDBHelper.searchDictionary6(searchBar4.getText().toString());
+                }
 
-            if (res.getCount() == 0) {
-                //no data
-                dataList.add("No Matches Found!");
-                return;
-            } else {
+                if (res.getCount() == 0) {
+                    //no data
+                    dataList.add("No Matches Found!");
+                    return;
+                } else {
 
-                while (res.moveToNext()) {
-                    if(!res.getString(0).contains("_")){
-                        String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" +" | "+ res.getString(1)+" | " + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
-                        dataList.add(htmlColourStr);
-                        meanList.add(res.getString(1));
+                    while (res.moveToNext()) {
+                        if (!res.getString(0).contains("_")) {
+                            String htmlColourStr = "<font color=#FD7E7E>" + res.getString(0) + "</font> <font color=#3BFF00>" + " | " + res.getString(1) + " | " + "</font>" + "<font color=#ffffff>" + res.getString(2) + "</font>";
+                            dataList.add(htmlColourStr);
+                            meanList.add(res.getString(1));
+                        }
                     }
                 }
             }

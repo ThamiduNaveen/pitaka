@@ -57,7 +57,7 @@ public class Sinhala extends Fragment {
         prepareListData();
 
 
-        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild); //here i'm getting an error now
+        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
 
         expListView.setAdapter(listAdapter);
 
