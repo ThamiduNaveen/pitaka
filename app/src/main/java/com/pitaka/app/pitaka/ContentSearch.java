@@ -8,15 +8,29 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.Toolbar;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 
 public class ContentSearch extends AppCompatActivity {
 
     private DatabaseHelper2 mDBHelper3;
     private SQLiteDatabase mDb3;
+
+    public static List<String> listData4Header = new ArrayList<String>();
+    public static List<String> listData4Items = new ArrayList<String>();
+
+    HashMap<String, List<String>> listDataChild;
+
+    ExpandableListAdapter listAdapter;
+
+    ExpandableListView expListView;
 
 
 
@@ -45,6 +59,21 @@ public class ContentSearch extends AppCompatActivity {
 
         mDBHelper3.openDataBase();
 
+        // get the listview
+        expListView = (ExpandableListView) findViewById(R.id.listExView);
+
+        // preparing list data
+
+
+        //searchContentP("");
+        prepareListData();
+
+
+
+        listAdapter = new ExpandableListAdapter(this, listData4Header, listDataChild);
+
+        expListView.setAdapter(listAdapter);
+
         searchT.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -53,10 +82,23 @@ public class ContentSearch extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                listData4Header.clear();
+                listData4Items.clear();
+
                 SinglishTranslator st = new SinglishTranslator();
                 String msg = st.convertText(searchT.getText().toString());
-                searchContentS(msg);  //Sinhala Search
-                searchContentP(msg);  //Paali Search
+                if(!msg.equals("")){
+                    searchContentS(msg);
+                }
+                //searchContentS(msg);  //Sinhala Search
+                //searchContentP(msg);  //Paali Search
+                prepareListData();
+
+
+                listAdapter = new ExpandableListAdapter(ContentSearch.this, listData4Header, listDataChild);
+
+                expListView.setAdapter(listAdapter);
 
 
             }
@@ -81,8 +123,8 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                //listDataHeader.add(res.getString(0));
-                //listDataItems.add(res.getString(2));
+                listData4Header.add(res.getString(0));
+                listData4Items.add(res.getString(2));
 
             }
         }
@@ -99,10 +141,23 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                //listDataHeader.add(res.getString(0));
-                //listDataItems.add(res.getString(2));
+                listData4Header.add(res.getString(0));
+                listData4Items.add(res.getString(2));
 
             }
         }
+    }
+
+    public void prepareListData(){
+
+        listDataChild = new HashMap<String, List<String>>();
+
+            int i=0;
+            while (i<(listData4Header.size())){
+                List<String> detail = new ArrayList<String>();
+                detail.add(listData4Items.get(i));
+                listDataChild.put(listData4Header.get(i), detail);
+                i++;
+            }
     }
 }
