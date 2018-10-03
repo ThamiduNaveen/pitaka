@@ -70,6 +70,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView listHeader=(TextView)view.findViewById(R.id.lblHead);
         listHeader.setTypeface(null, Typeface.BOLD);
         listHeader.setText(headerTitle);
+        //listHeader.isTextSelectable();
         return view;
     }
 
@@ -82,9 +83,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         }
 
-        TextView listHeader=(TextView)view.findViewById(R.id.lblListItem);
-        listHeader.setTypeface(null, Typeface.BOLD);
-        listHeader.setText(childText);
+        TextView listItem=(TextView)view.findViewById(R.id.lblListItem);
+        listItem.setTypeface(null, Typeface.BOLD);
+        listItem.setText(childText);
+        //listItem.isTextSelectable();
         return view;
     }
 

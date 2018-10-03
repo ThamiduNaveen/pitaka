@@ -114,17 +114,6 @@ public class Sinhala2 extends Fragment {
                 i++;
 
             }
-
-
         }
-
-
-
     }
-
-
-
-
-
-
 }

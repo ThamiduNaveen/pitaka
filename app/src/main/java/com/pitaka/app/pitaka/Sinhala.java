@@ -77,6 +77,7 @@ public class Sinhala extends Fragment {
                     previousItem = groupPosition;
                     setPosition = groupPosition;
                 }
+
             }
         });
 
