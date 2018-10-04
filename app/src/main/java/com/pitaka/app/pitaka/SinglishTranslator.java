@@ -48,7 +48,7 @@ public class SinglishTranslator {
         vowelsUni[25]="අ"; vowels[25]="a"; vowelModifiersUni[25]="";//I
         vowelsUni[26]="ඇ"; vowels[26]="A"; vowelModifiersUni[26]="ැ";
         vowelsUni[27]="ඉ"; vowels[27]="i"; vowelModifiersUni[27]="ි";
-        //todo down
+        //to remove fol
         vowelsUni[28]="ය"; vowels[28]="ya"; vowelModifiersUni[28]="‍ය";
 
         nVowels=29;
@@ -106,7 +106,7 @@ public class SinglishTranslator {
         consonantsUni[44]="ග"; consonants[44]="g";
 //last because we need to ommit this in dealing with Rakaransha
         consonantsUni[45]="ර"; consonants[45]="r";
-       //todo down
+       //toremove fol
         consonantsUni[46]="ඞ"; consonants[46]="aX";
         specialCharUni[0]="ෲ"; specialChar[0]="ruu";
         specialCharUni[1]="ෘ"; specialChar[1]="ru";

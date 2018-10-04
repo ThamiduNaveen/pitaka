@@ -33,6 +33,7 @@ public class ContentSearch extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
 
     ExpandableListView expListView;
+    String msg;
 
     int selection=0;
 
@@ -162,6 +163,9 @@ public class ContentSearch extends AppCompatActivity {
 
             while (res.moveToNext()) {
                 listData4Header.add(res.getString(0));
+                String innerContent = res.getString(2);
+                innerContent = innerContent.replaceAll(msg,"<font color='red'>"+msg+"</font>");
+                listData4Items.add(innerContent);
                 listData4Items.add(res.getString(2));
             }
         }
@@ -180,6 +184,10 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
+                listData4Header.add(res.getString(0));
+                String innerContent = res.getString(2);
+                innerContent = innerContent.replaceAll(msg,"<font color='red'>"+msg+"</font>");
+                listData4Items.add(innerContent);
                 listData4Header.add(res.getString(1));
                 listData4Items.add(res.getString(3));
 
