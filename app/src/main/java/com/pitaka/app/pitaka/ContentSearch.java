@@ -31,6 +31,7 @@ public class ContentSearch extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
 
     ExpandableListView expListView;
+    String msg;
 
 
 
@@ -87,7 +88,7 @@ public class ContentSearch extends AppCompatActivity {
                 listData4Items.clear();
 
                 SinglishTranslator st = new SinglishTranslator();
-                String msg = st.convertText(searchT.getText().toString());
+                msg = st.convertText(searchT.getText().toString());
                 if(!msg.equals("")){
                     searchContentS(msg);
                 }
@@ -124,8 +125,9 @@ public class ContentSearch extends AppCompatActivity {
 
             while (res.moveToNext()) {
                 listData4Header.add(res.getString(0));
-                listData4Items.add(res.getString(2));
-
+                String innerContent = res.getString(2);
+                innerContent = innerContent.replaceAll(msg,"<font color='red'>"+msg+"</font>");
+                listData4Items.add(innerContent);
             }
         }
     }
@@ -142,7 +144,9 @@ public class ContentSearch extends AppCompatActivity {
 
             while (res.moveToNext()) {
                 listData4Header.add(res.getString(0));
-                listData4Items.add(res.getString(2));
+                String innerContent = res.getString(2);
+                innerContent = innerContent.replaceAll(msg,"<font color='red'>"+msg+"</font>");
+                listData4Items.add(innerContent);
 
             }
         }

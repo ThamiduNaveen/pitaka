@@ -2,6 +2,7 @@ package com.pitaka.app.pitaka;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listItem=(TextView)view.findViewById(R.id.lblListItem);
         listItem.setTypeface(null, Typeface.BOLD);
-        listItem.setText(childText);
+        listItem.setText(Html.fromHtml(childText));
         //listItem.isTextSelectable();
         return view;
     }
