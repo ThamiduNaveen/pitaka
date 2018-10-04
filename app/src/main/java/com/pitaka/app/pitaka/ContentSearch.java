@@ -137,6 +137,8 @@ public class ContentSearch extends AppCompatActivity {
         if (res.getCount() == 0) {
             //no data
 
+
+
             return;
         } else {
 
