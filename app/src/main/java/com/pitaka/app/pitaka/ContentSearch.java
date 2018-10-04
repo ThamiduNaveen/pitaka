@@ -37,7 +37,7 @@ public class ContentSearch extends AppCompatActivity {
 
     int selection=0;
 
-    String msg;
+    //String msg;
 
 
 
