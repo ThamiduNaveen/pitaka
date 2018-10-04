@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper mDBHelper;
     private DatabaseHelper2 mDBHelper2;
-    private SQLiteDatabase mDb,mDb2;
+    private SQLiteDatabase mDb, mDb2;
 
     private static final int WRITE_EXTERNAL_STO_CODE = 1;
 
-    public static String tableString="";
+    public static String tableString = "";
 
-    public static Boolean isUpdated=false;
+    public static Boolean isUpdated = false;
     //data lists for Sinhala1 fragment
     public static List<String> listDataHeader = new ArrayList<String>();
     public static List<String> listDataItems = new ArrayList<String>();
@@ -78,15 +78,15 @@ public class MainActivity extends AppCompatActivity {
 
     //dictionary setting
     List<String> dicList = new ArrayList<String>();
-    public int selection1=0;
-    public int selection2=0;
+    public int selection1 = 0;
+    public int selection2 = 0;
 
     ViewPager viewPager;
     DrawerLayout drawer;
 
     //search
-    EditText searchBar,searchBar3;
-    TextView searchBar2,searchBar4;
+    EditText searchBar, searchBar3;
+    TextView searchBar2, searchBar4;
 
     //Navdrawer
     List<NLevelItem> list;
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
     //Navdrawer data
     String jsonStringList = "[{\"title\":\"විනයපිටක\",\"children\":[]},{\"title\":\"සුත්තපිටක\",\"children\":[{\"title\":\"දීඝනිකාය\",\"children\":[{\"title\":\"සීලක්ඛන්ධවග්ගපාළි\",\"children\":[{\"title\":\"බ්\u200Dරහ්මජාලසුත්තං\",\"children\":[]},{\"title\":\"සාමඤ්ඤඵලසුත්තං\",\"children\":[]},{\"title\":\"අම්බට්ඨසුත්තං\",\"children\":[]},{\"title\":\"සොණදණ්ඩසුත්තං\",\"children\":[]},{\"title\":\"කූටදන්තසුත්තං\",\"children\":[]},{\"title\":\"මහාලිසුත්තං\",\"children\":[]},{\"title\":\"ජාලියසුත්තං\",\"children\":[]},{\"title\":\"මහාසීහනාදසුත්තං\",\"children\":[]},{\"title\":\"පොට්ඨපාදසුත්තං\",\"children\":[]},{\"title\":\"සුභසුත්තං\",\"children\":[]},{\"title\":\"කෙවට්ටසුත්තං\",\"children\":[]},{\"title\":\"ලොහිච්චසුත්තං\",\"children\":[]},{\"title\":\"තෙවිජ්ජසුත්තං\",\"children\":[]}]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[{\"title\":\"මහාපදානසුත්තං\",\"children\":[]},{\"title\":\"මහානිදානසුත්තං\",\"children\":[]},{\"title\":\"මහාපරිනිබ්බානසුත්තං\",\"children\":[]},{\"title\":\"මහාසුදස්සනසුත්තං\",\"children\":[]},{\"title\":\"ජනවසභසුත්තං\",\"children\":[]},{\"title\":\"මහාගොවින්දසුත්තං\",\"children\":[]},{\"title\":\"මහාසමයසුත්තං\",\"children\":[]},{\"title\":\"සක්කපඤ්හසුත්තං\",\"children\":[]},{\"title\":\"මහාසතිපට්ඨානසුත්තං\",\"children\":[]},{\"title\":\"පායාසිසුත්තං\",\"children\":[]}]},{\"title\":\"පාථිකවග්ගපාළි\",\"children\":[{\"title\":\"1. පාථිකසුත්තං\",\"children\":[]},{\"title\":\"2. උදුම්බරිකසුත්තං\",\"children\":[]},{\"title\":\"3. චක්කවත්තිසුත්තං\",\"children\":[]},{\"title\":\"4. අග්ගඤ්ඤසුත්තං\",\"children\":[]},{\"title\":\"5. සම්පසාදනීයසුත්තං\",\"children\":[]},{\"title\":\"6. පාසාදිකසුත්තං\",\"children\":[]},{\"title\":\"7. ලක්ඛණසුත්තං\",\"children\":[]},{\"title\":\"8. සිඞ්ගාලසුත්තං\",\"children\":[]},{\"title\":\"9. ආටානාටියසුත්තං\",\"children\":[]},{\"title\":\"10. සඞ්ගීතිසුත්තං\",\"children\":[]},{\"title\":\"11. දසුත්තරසුත්තං\",\"children\":[]}]}]},{\"title\":\"මජ්ඣිමනිකාය\",\"children\":[{\"title\":\"මූලපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. මූලපරියායවග්ගො\",\"children\":[]},{\"title\":\"2. සීහනාදවග්ගො\",\"children\":[]},{\"title\":\"3. ඔපම්මවග්ගො\",\"children\":[]},{\"title\":\"4. මහායමකවග්ගො\",\"children\":[]},{\"title\":\"5. චූළයමකවග්ගො\",\"children\":[]}]},{\"title\":\"මජ්ඣිමපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. ගහපතිවග්ගො\",\"children\":[]},{\"title\":\"2. භික්ඛුවග්ගො\",\"children\":[]},{\"title\":\"3. පරිබ්බාජකවග්ගො\",\"children\":[]},{\"title\":\"4. රාජවග්ගො\",\"children\":[]},{\"title\":\"5. බ්‍රාහ්මණවග්ගො\",\"children\":[]}]},{\"title\":\"උපරිපණ්ණාසපාළි\",\"children\":[{\"title\":\"1. දෙවදහවග්ගො\",\"children\":[]},{\"title\":\"2. අනුපදවග්ගො\",\"children\":[]},{\"title\":\"3. සුඤ්ඤතවග්ගො\",\"children\":[]},{\"title\":\"4. විභඞ්ගවග්ගො\",\"children\":[]},{\"title\":\"5. සළායතනවග්ගො\",\"children\":[]}]}]},{\"title\":\"සංයුත්තනිකාය\",\"children\":[{\"title\":\"සගාථාවග්ගපාළි\",\"children\":[]},{\"title\":\"නිදානවග්ගපාළි\",\"children\":[]},{\"title\":\"ඛන්ධවග්ගපාළි\",\"children\":[]},{\"title\":\"සළායතනවග්ගපාළි\",\"children\":[]},{\"title\":\"මහාවග්ගපාළි\",\"children\":[]}]},{\"title\":\"අඞ්ගුත්තරනිකාය\",\"children\":[{\"title\":\"එකකනිපාතපාළි\",\"children\":[]},{\"title\":\"දුකනිපාතපාළි\",\"children\":[]},{\"title\":\"තිකනිපාතපාළි\",\"children\":[]},{\"title\":\"චතුක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"පඤ්චකනිපාතපාළි\",\"children\":[]},{\"title\":\"ඡක්කනිපාතපාළි\",\"children\":[]},{\"title\":\"සත්තකනිපාතපාළි\",\"children\":[]},{\"title\":\"අට්ඨකාදිනිපාතපාළි\",\"children\":[]},{\"title\":\"නවකනිපාතපාළි\",\"children\":[]},{\"title\":\"දසකනිපාතපාළි\",\"children\":[]},{\"title\":\"එකාදසකනිපාතපාළි\",\"children\":[]}]},{\"title\":\"ඛුද්දකනිකාය\",\"children\":[{\"title\":\"ඛුද්දකපාඨපාළි\",\"children\":[]},{\"title\":\"ධම්මපදපාළි\",\"children\":[]},{\"title\":\"උදානපාළි\",\"children\":[]},{\"title\":\"ඉතිවුත්තකපාළි\",\"children\":[]},{\"title\":\"සුත්තනිපාතපාළි\",\"children\":[]},{\"title\":\"විමානවත්ථුපාළි\",\"children\":[]},{\"title\":\"පෙතවත්ථුපාළි\",\"children\":[]},{\"title\":\"ථෙරගාථාපාළි\",\"children\":[]},{\"title\":\"ථෙරීගාථාපාළි\",\"children\":[]},{\"title\":\"අපදානපාළි-1\",\"children\":[]},{\"title\":\"අපදානපාළි-2\",\"children\":[]},{\"title\":\"බුද්ධවංසපාළි\",\"children\":[]},{\"title\":\"චරියාපිටකපාළි\",\"children\":[]},{\"title\":\"ජාතකපාළි-1\",\"children\":[]},{\"title\":\"ජාතකපාළි-2\",\"children\":[]},{\"title\":\"මහානිද්දෙසපාළි\",\"children\":[]},{\"title\":\"චූළනිද්දෙසපාළි\",\"children\":[]},{\"title\":\"පටිසම්භිදාමග්ගපාළි\",\"children\":[]},{\"title\":\"නෙත්තිප්පකරණපාළි\",\"children\":[]},{\"title\":\"මිලින්දපඤ්හපාළි\",\"children\":[]},{\"title\":\"පෙටකොපදෙසපාළි\",\"children\":[]}]}]},{\"title\":\"අභිධම්මපිටක\",\"children\":[]}]";
-
 
 
     private View mRightDrawerView;
@@ -160,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
 
         //tab initializing
         TabLayout tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("පාල "));
         tabLayout.addTab(tabLayout.newTab().setText("සිංහල 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("පාලි"));
         tabLayout.addTab(tabLayout.newTab().setText("සිංහල 2"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         TabLayout.Tab tab = tabLayout.getTabAt(1);
@@ -173,15 +172,14 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(1);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        ListView listV=findViewById(R.id.listV);
-        final ListView listV2=findViewById(R.id.listV2);
+        ListView listV = findViewById(R.id.listV);
+        final ListView listV2 = findViewById(R.id.listV2);
 
         //search
         final LayoutInflater mInflater2 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,tableList) {
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, tableList) {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent)
-            {
+            public View getView(int position, View convertView, ViewGroup parent) {
                 View row;
 
                 if (null == convertView) {
@@ -195,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 tv.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
                 tv.setBackgroundResource(R.drawable.back);
                 tv.setTextColor(Color.WHITE);
-                tv.setPadding(25,25,25,25);
+                tv.setPadding(25, 25, 25, 25);
                 tv.setText(getItem(position));
 
                 return row;
@@ -207,8 +205,7 @@ public class MainActivity extends AppCompatActivity {
         final LayoutInflater mInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         final ArrayAdapter<String> adapterr = new ArrayAdapter<String>(this, R.layout.dictionary_item, dataList) {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent)
-            {
+            public View getView(int position, View convertView, ViewGroup parent) {
                 View row;
 
                 if (null == convertView) {
@@ -222,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 tv.setSingleLine(false);
                 tv.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
                 tv.setBackgroundResource(R.drawable.back);
-                tv.setPadding(25,25,25,25);
+                tv.setPadding(25, 25, 25, 25);
                 tv.setText(Html.fromHtml(getItem(position)));
                 //tv.setText(getItem(position));
 
@@ -246,9 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     isUpdated = true;
                     viewPager.getAdapter().notifyDataSetChanged();
                     drawer.closeDrawer(GravityCompat.START);
-                }
-
-                catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "No database found!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -333,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
         final int count = tableList2.size();
         for (int j = 0; j < count; j++) {
 
-                tableList.add(tableList2.get(j));
+            tableList.add(tableList2.get(j));
 
         }
 
@@ -349,25 +344,23 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
 
+                SinglishTranslator st = new SinglishTranslator();
+                String msg = st.convertText(searchBar.getText().toString());
 
-                    SinglishTranslator st = new SinglishTranslator();
-                    String msg = st.convertText(searchBar.getText().toString());
-
-                    searchBar2.setText(msg);
-
-
-                    tableList.clear();
-                    createTableNameList();
+                searchBar2.setText(msg);
 
 
-                    for (int j = 0; j < count; j++) {
+                tableList.clear();
+                createTableNameList();
 
-                        if (tableList2.get(j).toLowerCase().startsWith(msg)) {
-                            tableList.add(tableList2.get(j));
-                        }
+
+                for (int j = 0; j < count; j++) {
+
+                    if (tableList2.get(j).toLowerCase().startsWith(msg)) {
+                        tableList.add(tableList2.get(j));
                     }
-                    adapter.notifyDataSetChanged();
-
+                }
+                adapter.notifyDataSetChanged();
 
 
             }
@@ -377,7 +370,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         final Spinner lanuage = findViewById(R.id.language);//conversion type selection
@@ -396,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 paaliBT.setVisibility(View.GONE);
                 sinhalaBT.setVisibility(View.VISIBLE);
-                selection1=0;
+                selection1 = 0;
                 searching();
                 adapterr.notifyDataSetChanged();
 
@@ -408,13 +400,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sinhalaBT.setVisibility(View.GONE);
                 paaliBT.setVisibility(View.VISIBLE);
-                selection1=1;
+                selection1 = 1;
                 searching();
                 adapterr.notifyDataSetChanged();
             }
         });
-
-
 
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
@@ -426,14 +416,12 @@ public class MainActivity extends AppCompatActivity {
         lanuage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i==0){
-                    selection1=0;
-                }
-                else if(i==1){
-                    selection1=1;
-                }
-                else if(i==2){
-                    selection1=2;
+                if (i == 0) {
+                    selection1 = 0;
+                } else if (i == 1) {
+                    selection1 = 1;
+                } else if (i == 2) {
+                    selection1 = 2;
                 }
                 //searching();
                 adapterr.notifyDataSetChanged();
@@ -582,9 +570,7 @@ public class MainActivity extends AppCompatActivity {
                                 isUpdated = true;
                                 viewPager.getAdapter().notifyDataSetChanged();
                                 drawer.closeDrawer(GravityCompat.START);
-                            }
-
-                            catch (Exception e){
+                            } catch (Exception e) {
                                 Toast.makeText(MainActivity.this, "No database found!", Toast.LENGTH_SHORT).show();
                             }
 
@@ -612,12 +598,12 @@ public class MainActivity extends AppCompatActivity {
             while (res.moveToNext()) {
 
                 //Sinhala1
-                listDataHeader.add(res.getString(0));
-                listDataItems.add(res.getString(2));
+                listDataHeader.add(res.getString(1));
+                listDataItems.add(res.getString(3));
 
                 //Paali
-                listData2Header.add(res.getString(1));
-                listData2Items.add(res.getString(3));
+                listData2Header.add(res.getString(0));
+                listData2Items.add(res.getString(2));
 
                 //Sinhala2
                 listData3Header.add(res.getString(0));
@@ -644,9 +630,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.search_content:
-                Intent contentSearchActivity= new Intent(MainActivity.this,ContentSearch.class);
+                Intent contentSearchActivity = new Intent(MainActivity.this, ContentSearch.class);
                 startActivity(contentSearchActivity);
+                return true;
 
+            case R.id.about:
+                Intent aboutActivity = new Intent(MainActivity.this, About.class);
+                startActivity(aboutActivity);
+                return true;
+
+            case R.id.exit:
+                System.exit(0);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -660,8 +655,8 @@ public class MainActivity extends AppCompatActivity {
         dataList.clear();
         meanList.clear();
         Cursor res;
-        try{
-            if(!searchBar4.getText().toString().equals("")) {
+        try {
+            if (!searchBar4.getText().toString().equals("")) {
                 if (selection1 == 0 && selection2 == 0) {
                     res = mDBHelper.searchDictionary1(searchBar4.getText().toString());
                 } else if (selection1 == 1 && selection2 == 0) {
@@ -691,9 +686,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        }
-        catch (Exception e){
-           // dataList.add("Dictionary Not Found!");
+        } catch (Exception e) {
+            // dataList.add("Dictionary Not Found!");
             Toast.makeText(this, "Dictionary Not Found", Toast.LENGTH_SHORT).show();
         }
     }
@@ -710,9 +704,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                if(!res.getString(0).contains("_")){
+                if (!res.getString(0).contains("_")) {
                     tableList2.add(res.getString(0));
-                    tableString=tableString+" union "+res.getString(0);
+                    tableString = tableString + " union " + res.getString(0);
                 }
             }
         }

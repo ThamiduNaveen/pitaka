@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toolbar;
@@ -31,6 +33,10 @@ public class ContentSearch extends AppCompatActivity {
     ExpandableListAdapter listAdapter;
 
     ExpandableListView expListView;
+
+    int selection=0;
+
+    String msg;
 
 
 
@@ -87,9 +93,15 @@ public class ContentSearch extends AppCompatActivity {
                 listData4Items.clear();
 
                 SinglishTranslator st = new SinglishTranslator();
-                String msg = st.convertText(searchT.getText().toString());
+                msg = st.convertText(searchT.getText().toString());
                 if(!msg.equals("")){
-                    searchContentS(msg);
+                    if(selection==1){
+                        searchContentS(msg);
+                    }
+                    else {
+                        searchContentP(msg);
+                    }
+
                 }
                 //searchContentS(msg);  //Sinhala Search
                 //searchContentP(msg);  //Paali Search
@@ -109,6 +121,32 @@ public class ContentSearch extends AppCompatActivity {
             }
         });
 
+        final Button paaliB = (Button) findViewById(R.id.paaliS);
+        final Button sinhalaB = (Button) findViewById(R.id.sinhalaS);
+        paaliB.setVisibility(View.GONE);
+
+        paaliB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paaliB.setVisibility(View.GONE);
+                sinhalaB.setVisibility(View.VISIBLE);
+                selection=0;
+                searchContentS(msg);
+
+
+            }
+        });
+
+        sinhalaB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sinhalaB.setVisibility(View.GONE);
+                paaliB.setVisibility(View.VISIBLE);
+                selection=1;
+                searchContentP(msg);
+            }
+        });
+
 
     }
 
@@ -125,7 +163,6 @@ public class ContentSearch extends AppCompatActivity {
             while (res.moveToNext()) {
                 listData4Header.add(res.getString(0));
                 listData4Items.add(res.getString(2));
-
             }
         }
     }
@@ -143,8 +180,8 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                listData4Header.add(res.getString(0));
-                listData4Items.add(res.getString(2));
+                listData4Header.add(res.getString(1));
+                listData4Items.add(res.getString(3));
 
             }
         }
