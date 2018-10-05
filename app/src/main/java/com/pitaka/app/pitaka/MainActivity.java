@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         //tab initializing
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("පාල "));
+        tabLayout.addTab(tabLayout.newTab().setText("පාලි"));
         tabLayout.addTab(tabLayout.newTab().setText("සිංහල 1"));
         tabLayout.addTab(tabLayout.newTab().setText("සිංහල 2"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

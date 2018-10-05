@@ -17,7 +17,7 @@
             android:id="@+id/text_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Search Content"/>
+            android:hint="සෙවීම"/>
 
     </Toolbar>
 
@@ -26,9 +26,9 @@
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:padding="10dp"
-        android:text="Paali Search"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:text="පාලි සෙවීම"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:textColor="#744308"
         android:textAlignment="center"
@@ -39,10 +39,10 @@
         android:id="@+id/sinhalaS"
         android:layout_width="200dp"
         android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:text="Sinhala Search"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:text="සිංහල සෙවීම"
+        android:gravity="center"
         android:layout_marginTop="55dp"
         android:textColor="#744308"
         android:textAlignment="center"

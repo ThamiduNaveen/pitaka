@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +18,14 @@ import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listData2Header;
 import static com.pitaka.app.pitaka.MainActivity.listData2Items;
 
+import static com.pitaka.app.pitaka.Sinhala.collapseLeft;
 import static com.pitaka.app.pitaka.Sinhala.collapseList;
 import static com.pitaka.app.pitaka.Sinhala.expandList;
-import static com.pitaka.app.pitaka.Sinhala.setPosition;
+import static com.pitaka.app.pitaka.Sinhala.expandedLeft;
+import static com.pitaka.app.pitaka.Sinhala.previousItemL;
+import static com.pitaka.app.pitaka.Sinhala2.collapseRight;
+import static com.pitaka.app.pitaka.Sinhala2.expandedRight;
+import static com.pitaka.app.pitaka.Sinhala2.previousItemR;
 import static com.pitaka.app.pitaka.Sinhala2.sinhala2Collaps;
 import static com.pitaka.app.pitaka.Sinhala2.sinhala2Expand;
 
@@ -27,10 +33,15 @@ import static com.pitaka.app.pitaka.Sinhala2.sinhala2Expand;
 public class Paali extends Fragment {
 
     ExpandableListAdapter listAdapter;
-    public static ExpandableListView expPaliListView;
+    private static ExpandableListView expPaliListView;
+
+    public static int expandedMiddle = -1;
+
+    public static int collapseMiddle = -1;
+
+    public static int previousItemM = -1;
 
     HashMap<String, List<String>> listDataChild;
-
 
 
     @Override
@@ -58,29 +69,43 @@ public class Paali extends Fragment {
         expPaliListView.setAdapter(listAdapter);
 
 
-
-
-
         expPaliListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            int previousItem = -1;
-
-            @Override
+            @Override//middle
             public void onGroupExpand(int groupPosition) {
-                collapseList(previousItem);
-                sinhala2Collaps(previousItem);
-                expandList(groupPosition);
-                sinhala2Expand(groupPosition);
-
-                if(groupPosition != previousItem ) {
-                    expPaliListView.collapseGroup(previousItem);
-                    previousItem = groupPosition;
+                collapseMiddle = -1;
+                expandedMiddle = groupPosition;
+                if (expandedMiddle != expandedLeft) {
+                    expandList(groupPosition);
                 }
+                if (expandedMiddle != expandedRight) {
+                    sinhala2Expand(groupPosition);
+                }
+
+
+                if (previousItemM != -1 && groupPosition != previousItemM) {
+                    expPaliListView.collapseGroup(previousItemM);
+                }
+                previousItemM = groupPosition;
 
             }
 
 
         });
+        expPaliListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int i) {
+                collapseMiddle = i;
+                expandedMiddle = -1;
+                if (collapseMiddle != collapseLeft) {
+                    collapseList(i);
+                }
+                if (collapseMiddle != collapseRight) {
+                    sinhala2Collaps(i);
+                }
 
+
+            }
+        });
 
 
         return view;
@@ -88,22 +113,24 @@ public class Paali extends Fragment {
 
     public static void expandPaliList(int position) {
 
-        expPaliListView.expandGroup(position,true);
+        expPaliListView.expandGroup(position, true);
 
     }
 
-    public void prepareListData(){
+    public static void paliCollaps(int position) {
+        expPaliListView.collapseGroup(position);
+    }
+
+    public void prepareListData() {
 
         listDataChild = new HashMap<String, List<String>>();
 
-        if(!isUpdated){
+        if (!isUpdated) {
 
             //initial view
-        }
-
-        else {
-            int i=0;
-            while (i<(listData2Header.size())){
+        } else {
+            int i = 0;
+            while (i < (listData2Header.size())) {
                 List<String> detail = new ArrayList<String>();
                 detail.add(listData2Items.get(i));
                 listDataChild.put(listData2Header.get(i), detail);
@@ -112,7 +139,6 @@ public class Paali extends Fragment {
             }
 
         }
-
 
 
     }

@@ -3,11 +3,13 @@ package com.pitaka.app.pitaka;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Html;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,12 +70,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         }
 
-        TextView listHeader=(TextView)view.findViewById(R.id.lblHead);
+        final TextView listHeader=(TextView)view.findViewById(R.id.lblHead);
         listHeader.setTypeface(null, Typeface.BOLD);
         listHeader.setText(headerTitle);
         //listHeader.isTextSelectable();
         return view;
     }
+
+
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
@@ -86,7 +90,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listItem=(TextView)view.findViewById(R.id.lblListItem);
         listItem.setTypeface(null, Typeface.BOLD);
-        listItem.setText(Html.fromHtml(childText));
+        String justyFyTxt = "<p align=\"justify\">"+childText+"</p>";
+        listItem.setText(Html.fromHtml(justyFyTxt));
         //listItem.isTextSelectable();
         return view;
     }
