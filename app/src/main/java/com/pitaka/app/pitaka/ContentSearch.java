@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import java.io.IOException;
@@ -18,6 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.pitaka.app.pitaka.Sinhala.collapseList;
+import static com.pitaka.app.pitaka.Sinhala.expandList;
+import static com.pitaka.app.pitaka.Sinhala2.sinhala2Collaps;
+import static com.pitaka.app.pitaka.Sinhala2.sinhala2Expand;
 
 
 public class ContentSearch extends AppCompatActivity {
@@ -37,7 +42,7 @@ public class ContentSearch extends AppCompatActivity {
 
     int selection=0;
 
-    //String msg;
+    TextView tv;
 
 
 
@@ -81,6 +86,8 @@ public class ContentSearch extends AppCompatActivity {
 
         expListView.setAdapter(listAdapter);
 
+        tv=findViewById(R.id.preview);
+
         searchT.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -95,6 +102,8 @@ public class ContentSearch extends AppCompatActivity {
 
                 SinglishTranslator st = new SinglishTranslator();
                 msg = st.convertText(searchT.getText().toString());
+                tv.setText(msg);
+
                 if(!msg.equals("")){
                     if(selection==1){
                         searchContentS(msg);
@@ -130,7 +139,9 @@ public class ContentSearch extends AppCompatActivity {
                 paaliB.setVisibility(View.GONE);
                 sinhalaB.setVisibility(View.VISIBLE);
                 selection=0;
-                searchContentS(msg);
+                searchT.setText("");
+                listData4Header.clear();
+                listData4Items.clear();
 
 
             }
@@ -142,8 +153,26 @@ public class ContentSearch extends AppCompatActivity {
                 sinhalaB.setVisibility(View.GONE);
                 paaliB.setVisibility(View.VISIBLE);
                 selection=1;
-                searchContentP(msg);
+                searchT.setText("");
+                listData4Header.clear();
+                listData4Items.clear();
             }
+        });
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousItem = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+
+                if(groupPosition != previousItem ) {
+                    expListView.collapseGroup(previousItem);
+                    previousItem = groupPosition;
+                }
+
+            }
+
+
         });
 
 
@@ -174,8 +203,6 @@ public class ContentSearch extends AppCompatActivity {
 
         if (res.getCount() == 0) {
             //no data
-
-
 
             return;
         } else {

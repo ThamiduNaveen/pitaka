@@ -21,37 +21,44 @@
 
     </Toolbar>
 
+    <TextView
+        android:id="@+id/preview"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="55dp"/>
+
     <Button
         android:id="@+id/paaliS"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="35dp"
         android:padding="10dp"
-        android:text="Paali Search"
+        android:text="Paali"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="75dp"
         android:textColor="#744308"
         android:textAlignment="center"
         android:background="@drawable/round_coners"
-        android:textSize="18sp" />
+        android:textSize="10sp" />
 
     <Button
         android:id="@+id/sinhalaS"
         android:layout_width="200dp"
-        android:layout_height="45dp"
+        android:layout_height="35dp"
         android:padding="10dp"
-        android:text="Sinhala Search"
+        android:text="Sinhala"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="75dp"
         android:textColor="#744308"
         android:textAlignment="center"
         android:background="@drawable/round_coners"
-        android:textSize="18sp" />
+        android:textSize="10sp" />
 
     <ExpandableListView
         android:id="@+id/listExView"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="110dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
