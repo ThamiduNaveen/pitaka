@@ -77,8 +77,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return view;
     }
 
-
-
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         final String childText=(String)getChild(i,i1);
