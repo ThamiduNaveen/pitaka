@@ -85,7 +85,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             view = inflater.inflate(R.layout.list_items,null);
 
         }
-
         TextView listItem=(TextView)view.findViewById(R.id.lblListItem);
         listItem.setTypeface(null, Typeface.BOLD);
         String justyFyTxt = "<p align=\"justify\">"+childText+"</p>";
