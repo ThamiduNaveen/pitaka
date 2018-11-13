@@ -32,6 +32,8 @@ import static com.pitaka.app.pitaka.Sinhala2.sinhala2Expand;
 
 public class Paali extends Fragment {
 
+
+
     ExpandableListAdapter listAdapter;
     private static ExpandableListView expPaliListView;
 
@@ -46,6 +48,8 @@ public class Paali extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
     }
 
@@ -72,6 +76,7 @@ public class Paali extends Fragment {
         expPaliListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override//middle
             public void onGroupExpand(int groupPosition) {
+
                 collapseMiddle = -1;
                 expandedMiddle = groupPosition;
                 if (expandedMiddle != expandedLeft) {
