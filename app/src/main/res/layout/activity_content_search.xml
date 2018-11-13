@@ -87,8 +87,6 @@
 
         </android.support.v7.widget.LinearLayoutCompat>
 
-
-
         <ExpandableListView
             android:id="@+id/listExView"
             android:layout_marginTop="5dp"
