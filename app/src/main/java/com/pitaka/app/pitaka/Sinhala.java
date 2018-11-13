@@ -1,5 +1,6 @@
 package com.pitaka.app.pitaka;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Dimension;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listDataHeader;
 import static com.pitaka.app.pitaka.MainActivity.listDataItems;
+import static com.pitaka.app.pitaka.MainActivity.pathName;
 import static com.pitaka.app.pitaka.Paali.collapseMiddle;
 import static com.pitaka.app.pitaka.Paali.expandPaliList;
 import static com.pitaka.app.pitaka.Paali.expandedMiddle;
@@ -36,6 +39,7 @@ public class Sinhala extends Fragment {
     ExpandableListAdapter listAdapter;
     private static ExpandableListView expListViewSinhal1;
     Button button;
+    TextView pathTag;
     public static int previousItemL = -1;
     public static int expandedLeft = -1;
 
@@ -56,6 +60,10 @@ public class Sinhala extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_sinhala, container, false);
+
+        pathTag = (TextView) view.findViewById(R.id.path);
+
+        pathTag.setTextColor(Color.BLACK);
 
 
         // get the listview
@@ -128,6 +136,8 @@ public class Sinhala extends Fragment {
 
             //initial view
         } else {
+
+            pathTag.setText(pathName);
             int i = 0;
             while (i < (listDataHeader.size())) {
                 List<String> detail = new ArrayList<String>();

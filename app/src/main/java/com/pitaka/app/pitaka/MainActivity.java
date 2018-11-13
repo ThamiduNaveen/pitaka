@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
     //data lists for Sinhala1 fragment
     public static List<String> listDataHeader = new ArrayList<String>();
     public static List<String> listDataItems = new ArrayList<String>();
-    //data lists for Paali fragment
+    public static String pathName;
+ //data lists for Paali fragment
     public static List<String> listData2Header = new ArrayList<String>();
     public static List<String> listData2Items = new ArrayList<String>();
     //data lists for Sinhala2 fragment
@@ -596,6 +597,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
+
+                pathName=res.getString(5);
 
                 //Sinhala1
                 listDataHeader.add(res.getString(1));

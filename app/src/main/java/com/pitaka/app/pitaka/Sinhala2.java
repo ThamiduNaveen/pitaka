@@ -1,11 +1,13 @@
 package com.pitaka.app.pitaka;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.List;
 import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listData3Header;
 import static com.pitaka.app.pitaka.MainActivity.listData3Items;
+import static com.pitaka.app.pitaka.MainActivity.pathName;
 import static com.pitaka.app.pitaka.Paali.collapseMiddle;
 import static com.pitaka.app.pitaka.Paali.expandPaliList;
 import static com.pitaka.app.pitaka.Paali.expandedMiddle;
@@ -37,6 +40,8 @@ public class Sinhala2 extends Fragment {
 
     public static int collapseRight = -1;
 
+    TextView pathTag;
+
     HashMap<String, List<String>> listDataChild;
 
 
@@ -52,6 +57,9 @@ public class Sinhala2 extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_sinhala, container, false);
+
+        pathTag = (TextView) view.findViewById(R.id.path);
+        pathTag.setTextColor(Color.BLACK);
 
 
         // get the listview
@@ -134,6 +142,8 @@ public class Sinhala2 extends Fragment {
 
             //initial view
         } else {
+
+            pathTag.setText(pathName);
             int i = 0;
             while (i < (listData3Header.size())) {
                 List<String> detail = new ArrayList<String>();

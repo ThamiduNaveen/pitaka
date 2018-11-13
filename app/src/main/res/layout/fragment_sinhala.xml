@@ -7,10 +7,17 @@
     android:tag="frag_sinhala"
     android:background="@color/fragmentBackground">
 
+   <TextView
+       android:id="@+id/path"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
+
    <ExpandableListView
        android:id="@+id/listExView"
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:layout_alignParentTop="true"
+       android:layout_marginTop="30dp">
 
 
    </ExpandableListView>

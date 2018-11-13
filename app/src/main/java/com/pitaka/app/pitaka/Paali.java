@@ -1,6 +1,7 @@
 package com.pitaka.app.pitaka;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import static com.pitaka.app.pitaka.MainActivity.isUpdated;
 import static com.pitaka.app.pitaka.MainActivity.listData2Header;
 import static com.pitaka.app.pitaka.MainActivity.listData2Items;
 
+import static com.pitaka.app.pitaka.MainActivity.pathName;
 import static com.pitaka.app.pitaka.Sinhala.collapseLeft;
 import static com.pitaka.app.pitaka.Sinhala.collapseList;
 import static com.pitaka.app.pitaka.Sinhala.expandList;
@@ -43,6 +46,8 @@ public class Paali extends Fragment {
 
     public static int previousItemM = -1;
 
+    TextView pathTag;
+
     HashMap<String, List<String>> listDataChild;
 
 
@@ -58,6 +63,9 @@ public class Paali extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_paali, container, false);
+
+        pathTag = (TextView) view.findViewById(R.id.path2);
+        pathTag.setTextColor(Color.BLACK);
 
 
         // get the listview
@@ -134,6 +142,8 @@ public class Paali extends Fragment {
 
             //initial view
         } else {
+
+            pathTag.setText(pathName);
             int i = 0;
             while (i < (listData2Header.size())) {
                 List<String> detail = new ArrayList<String>();
