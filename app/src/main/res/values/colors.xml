@@ -5,4 +5,5 @@
     <color name="colorAccent">#ff6940</color>
     <color name="colorBackNav">#e6cea8</color>
     <color name="fragmentBackground">#efdfc6</color>
+    <color name="fragBackground">#ffffff</color>
 </resources>

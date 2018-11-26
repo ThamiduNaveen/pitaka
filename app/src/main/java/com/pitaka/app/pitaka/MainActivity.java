@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
                     listData2Items.clear();
                     listData3Header.clear();
                     listData3Items.clear();
+                    pathName="";
                     getSupportActionBar().setTitle(tableList.get(i));
                     createVerseList(tableList.get(i));
                     isUpdated = true;
@@ -564,6 +565,7 @@ public class MainActivity extends AppCompatActivity {
                             listData2Items.clear();
                             listData3Header.clear();
                             listData3Items.clear();
+                            pathName="";
                             try {
                                 getSupportActionBar().setTitle(Title);
                                 createVerseList(Title.toString());
@@ -610,7 +612,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Sinhala2
                 listData3Header.add(res.getString(0));
-                listData3Items.add(res.getString(3));
+                listData3Items.add(res.getString(4));
 
             }
 

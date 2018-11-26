@@ -56,9 +56,9 @@ public class Sinhala2 extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_sinhala, container, false);
+        View view = inflater.inflate(R.layout.fragment_sinhala2, container, false);
 
-        pathTag = (TextView) view.findViewById(R.id.path);
+        pathTag = (TextView) view.findViewById(R.id.path3);
         pathTag.setTextColor(Color.BLACK);
 
 
@@ -150,7 +150,6 @@ public class Sinhala2 extends Fragment {
                 detail.add(listData3Items.get(i));
                 listDataChild.put(listData3Header.get(i), detail);
                 i++;
-
             }
         }
     }

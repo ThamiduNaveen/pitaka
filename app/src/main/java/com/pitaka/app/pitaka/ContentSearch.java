@@ -189,7 +189,7 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                listData4Header.add(res.getString(0));
+                listData4Header.add(res.getString(5)+">>"+res.getString(0));
                 String innerContent = res.getString(2);
                 innerContent = innerContent.replaceAll(msg,"<font color='red'>"+msg+"</font>");
                 listData4Items.add(innerContent);
@@ -208,7 +208,7 @@ public class ContentSearch extends AppCompatActivity {
         } else {
 
             while (res.moveToNext()) {
-                listData4Header.add(res.getString(1));
+                listData4Header.add(res.getString(5)+">>"+res.getString(1));
                 String innerContent = res.getString(3);
                 innerContent = innerContent.replaceAll(msg,"<font color='red'>"+msg+"</font>");
                 listData4Items.add(innerContent);
