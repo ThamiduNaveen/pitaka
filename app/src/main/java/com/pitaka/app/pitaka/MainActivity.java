@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
     //Navdrawer
     List<NLevelItem> list;
     ListView listView;
+
+    String table_Name="";
 
 
     //Navdrawer data
@@ -175,6 +178,24 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listV = findViewById(R.id.listV);
         final ListView listV2 = findViewById(R.id.listV2);
+
+        table_Name= getIntent().getStringExtra("TABLE_NAME");
+
+        try{
+            listDataHeader.clear();
+            listDataItems.clear();
+            listData2Header.clear();
+            listData2Items.clear();
+            listData3Header.clear();
+            listData3Items.clear();
+            pathName="";
+            isUpdated = true;
+            createVerseList(table_Name);
+        }
+        catch (Exception e){
+            Log.e("Error","Failed to load!");
+        }
+
 
         //search
         final LayoutInflater mInflater2 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
