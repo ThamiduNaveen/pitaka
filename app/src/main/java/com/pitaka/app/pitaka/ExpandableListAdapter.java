@@ -87,8 +87,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView listItem=(TextView)view.findViewById(R.id.lblListItem);
         listItem.setTypeface(null, Typeface.BOLD);
-        String justyFyTxt = "<p align=\"justify\">"+childText+"</p>";
-        listItem.setText(Html.fromHtml(justyFyTxt));
+        listItem.setText(childText);
         //listItem.isTextSelectable();
         return view;
     }
